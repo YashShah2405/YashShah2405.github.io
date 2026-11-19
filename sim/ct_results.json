@@ -1,0 +1,20 @@
+{
+ "0.8": {
+  "FIFO, wait for parts": 4.6,
+  "FIFO + shortage flags": 0.5,
+  "Due date first, wait for parts": 6.6,
+  "Due date first + shortage flags": 0.1
+ },
+ "0.88": {
+  "FIFO, wait for parts": 11.5,
+  "FIFO + shortage flags": 2.8,
+  "Due date first, wait for parts": 17.6,
+  "Due date first + shortage flags": 1.7
+ },
+ "0.94": {
+  "FIFO, wait for parts": 23.3,
+  "FIFO + shortage flags": 9.1,
+  "Due date first, wait for parts": 34.0,
+  "Due date first + shortage flags": 6.9
+ }
+}
