@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yash Shah Portfolio</title>
+<meta name="description" content="Yash Shah, industrial and operations engineer. I fix the systems that make physical things ship on time: production control, line balancing, deployment planning and operations tooling.">
+<meta property="og:title" content="Yash Shah, Operations Engineer">
+<meta property="og:description" content="Line 1 late output cut from 71% to 35%. Scrap cut 18%. Case studies in production control, deployment and operations software.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230D0E0B'/%3E%3Crect x='6' y='19' width='20' height='3' fill='%23C6F432'/%3E%3Crect x='9' y='10' width='7' height='7' fill='%23ECEEE4'/%3E%3Crect x='18' y='12' width='5' height='5' fill='%239A9E8C'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Plan: one dark "factory at night" world. Graphite neutrals biased to the lime accent,
+   lime only for things that are running or passed, amber and red only inside data and UI states.
+   Layout idea: a live production line on top, then a type led project index (station list),
+   then case studies that read like engineering reports with numbered steps. */
+:root{
+  --bg:#0D0E0B;
+  --surface:#14160F;
+  --raise:#1C1F16;
+  --line:#2C3024;
+  --ink:#ECEEE4;
+  --muted:#9DA190;
+  --lime:#C6F432;
+  --amber:#FFB547;
+  --red:#FF6B57;
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --body:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --gutter:clamp(16px,4vw,48px);
+  --maxw:1240px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;font-variation-settings:"wdth" 100}
+a{color:inherit}
+img,svg{max-width:100%}
+:focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-radius:2px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter)}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;font-weight:700}
+.tab{font-variant-numeric:tabular-nums}
+
+/* Header */
+.top{position:sticky;top:0;z-index:20;background:rgba(13,14,11,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:800;letter-spacing:.04em;font-variation-settings:"wdth" 118;font-size:15px}
+.brand i{width:10px;height:10px;border-radius:50%;background:var(--lime);box-shadow:0 0 12px var(--lime);display:inline-block}
+.nav{display:flex;gap:clamp(12px,3vw,28px);align-items:center}
+.nav a{text-decoration:none;color:var(--muted);font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.nav a:hover{color:var(--ink)}
+.nav .cta{color:var(--bg);background:var(--lime);padding:8px 12px;border-radius:3px;font-weight:600}
+.nav .cta:hover{color:var(--bg);filter:brightness(1.08)}
+@media (max-width:640px){.nav .hide-sm{display:none}}
+
+/* Hero */
+.hero{position:relative;height:clamp(560px,76vh,760px);overflow:hidden;border-bottom:1px solid var(--line)}
+#scene{position:absolute;inset:0}
+#scene canvas{display:block;width:100%;height:100%}
+#scene.noscene{background:
+  repeating-linear-gradient(90deg,transparent 0 59px,var(--line) 59px 60px),
+  repeating-linear-gradient(0deg,transparent 0 59px,var(--line) 59px 60px),var(--bg);opacity:.5}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(13,14,11,.94) 0%,rgba(13,14,11,.72) 34%,rgba(13,14,11,0) 64%),
+             linear-gradient(0deg,rgba(13,14,11,.95) 0%,rgba(13,14,11,0) 30%)}
+.hero-copy{position:absolute;z-index:2;left:0;right:0;bottom:clamp(28px,6vh,64px)}
+.hero-copy .mono{color:var(--lime)}
+.hero h1{font-size:clamp(38px,6.2vw,84px);line-height:.98;letter-spacing:-.01em;max-width:13.5ch;margin:14px 0 18px;font-variation-settings:"wdth" 108}
+.hero p{max-width:52ch;color:#C9CCBE;margin:0 0 26px;font-size:clamp(16px,1.6vw,19px)}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 18px;border-radius:3px;text-decoration:none;font-family:var(--mono);font-size:13px;letter-spacing:.04em;border:1px solid var(--line);background:rgba(20,22,15,.7);cursor:pointer;color:var(--ink)}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--lime);color:var(--bg);border-color:var(--lime);font-weight:600}
+.btn.primary:hover{filter:brightness(1.08)}
+.ticker{position:absolute;z-index:2;top:18px;right:var(--gutter);display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;max-width:560px}
+.chip{font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding:6px 9px;border:1px solid var(--line);background:rgba(13,14,11,.75);border-radius:2px;color:var(--muted);white-space:nowrap}
+.chip b{color:var(--ink);font-weight:600}
+.live{color:var(--lime)}
+.live::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--lime);margin-right:7px;vertical-align:1px;animation:blink 1.6s infinite}
+@keyframes blink{50%{opacity:.25}}
+@media (max-width:760px){.ticker{display:none}.hero::after{background:linear-gradient(0deg,rgba(13,14,11,.97) 0%,rgba(13,14,11,.85) 48%,rgba(13,14,11,.1) 100%)}}
+
+/* Sections */
+section{padding:clamp(64px,10vw,120px) 0;border-bottom:1px solid var(--line)}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:24px;align-items:end;margin-bottom:40px}
+.sec-head h2{font-size:clamp(30px,4.2vw,52px);line-height:1.02;font-variation-settings:"wdth" 108}
+.sec-head p{margin:0;color:var(--muted);max-width:58ch}
+.sec-head .mono{color:var(--lime);display:block;margin-bottom:10px}
+@media (max-width:800px){.sec-head{grid-template-columns:1fr}}
+
+/* Project index */
+.index{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.index li{border-bottom:1px solid var(--line)}
+.row{display:grid;grid-template-columns:72px minmax(0,1fr) 240px 40px;gap:20px;align-items:center;padding:28px 0;text-decoration:none;transition:padding .25s ease}
+.row .n{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.08em}
+.row h3{font-size:clamp(26px,4vw,52px);line-height:1;font-variation-settings:"wdth" 112;font-weight:700;transition:color .2s}
+.row .sub{display:block;color:var(--muted);font-size:15px;margin-top:10px;max-width:62ch;font-family:var(--body);font-weight:400}
+.row .tags{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:4px 7px;border:1px solid var(--line);border-radius:2px;color:var(--muted)}
+.tag.real{border-color:rgba(198,244,50,.45);color:var(--lime)}
+.tag.concept{border-color:rgba(255,181,71,.45);color:var(--amber)}
+.metric{font-family:var(--mono);text-align:right}
+.metric b{display:block;font-size:clamp(20px,2.4vw,30px);color:var(--ink);font-weight:600;letter-spacing:-.01em}
+.metric span{font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.arrow{font-family:var(--mono);font-size:22px;color:var(--muted);transition:transform .25s,color .2s;text-align:right}
+.row:hover h3,.row:focus-visible h3{color:var(--lime)}
+.row:hover .arrow{color:var(--lime);transform:translateX(6px)}
+.row:hover{padding-left:12px}
+@media (max-width:860px){.row{grid-template-columns:44px minmax(0,1fr)}.metric{grid-column:2;text-align:left}.arrow{display:none}.row:hover{padding-left:0}}
+.peek{position:fixed;z-index:30;width:300px;height:200px;pointer-events:none;border:1px solid var(--line);background:var(--surface);border-radius:4px;opacity:0;transform:translate(-50%,-50%) scale(.92);transition:opacity .18s,transform .18s;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.peek.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.peek svg{width:100%;height:100%;display:block}
+@media (hover:none),(max-width:860px){.peek{display:none}}
+
+/* More work */
+.more{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:56px}
+.more article{background:var(--bg);padding:24px;display:flex;flex-direction:column;gap:10px}
+.more h4{margin:0;font-family:var(--display);font-size:19px;line-height:1.2;font-variation-settings:"wdth" 104}
+.more p{margin:0;color:var(--muted);font-size:15px}
+.more .mono{color:var(--muted);font-size:11px}
+.more .big{font-family:var(--mono);font-size:22px;color:var(--lime);font-weight:600}
+@media (max-width:1000px){.more{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.more{grid-template-columns:1fr}}
+
+/* Approach */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;counter-reset:s}
+.steps div{border-top:2px solid var(--line);padding-top:18px;position:relative}
+.steps div:first-child{border-color:var(--lime)}
+.steps .mono{color:var(--muted)}
+.steps h3{font-size:22px;margin:10px 0 8px;font-variation-settings:"wdth" 106}
+.steps p{margin:0;color:var(--muted);font-size:15px}
+@media (max-width:900px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+
+/* Lanes */
+.lanes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.lane{border:1px solid var(--line);background:var(--surface);padding:26px;border-radius:4px;display:flex;flex-direction:column;gap:12px}
+.lane h3{font-size:22px;line-height:1.15;font-variation-settings:"wdth" 106}
+.lane p{margin:0;color:var(--muted);font-size:15px}
+.lane .mono{color:var(--lime)}
+.lane ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.lane li{font-family:var(--mono);font-size:11px;padding:4px 7px;border:1px solid var(--line);border-radius:2px;color:#C9CCBE}
+.lane .proof{margin-top:auto;padding-top:12px;border-top:1px dashed var(--line);font-size:14px;color:#C9CCBE}
+@media (max-width:900px){.lanes{grid-template-columns:1fr}}
+
+/* Toolbox and about */
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,80px)}
+@media (max-width:860px){.two{grid-template-columns:1fr}}
+.tools dl{margin:0;display:grid;gap:18px}
+.tools dt{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime);margin-bottom:6px}
+.tools dd{margin:0;color:#C9CCBE;font-size:15px}
+.about p{margin:0 0 16px;max-width:60ch;color:#C9CCBE}
+.about p.lead{font-size:clamp(20px,2.2vw,26px);line-height:1.35;color:var(--ink);font-family:var(--display);font-variation-settings:"wdth" 100;font-weight:500}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:24px}
+.facts div{background:var(--bg);padding:16px}
+.facts .mono{color:var(--muted);font-size:11px;display:block;margin-bottom:4px}
+
+/* Contact */
+.contact{text-align:left}
+.contact h2{font-size:clamp(40px,7vw,96px);line-height:.95;font-variation-settings:"wdth" 112;max-width:14ch;margin:16px 0 28px}
+.contact .addr{font-family:var(--mono);font-size:clamp(16px,2vw,22px);color:var(--lime);word-break:break-all}
+footer{padding:28px 0 40px;color:var(--muted);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer p{margin:0;max-width:70ch}
+
+/* Case study */
+.view[hidden]{display:none}
+.case-top{padding:clamp(40px,7vw,88px) 0 40px;border-bottom:1px solid var(--line)}
+.back{display:inline-flex;gap:8px;align-items:center;text-decoration:none;color:var(--muted);font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:36px}
+.back:hover{color:var(--lime)}
+.case-top h1{font-size:clamp(40px,7vw,96px);line-height:.95;font-variation-settings:"wdth" 112;max-width:16ch;margin:14px 0 22px}
+.case-top .summary{font-size:clamp(18px,2vw,22px);line-height:1.45;max-width:60ch;color:#C9CCBE;margin:0}
+.meta{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:40px}
+.meta div{background:var(--bg);padding:16px}
+.meta .mono{color:var(--muted);font-size:11px;display:block;margin-bottom:6px}
+.meta p{margin:0;font-size:14px;line-height:1.45}
+@media (max-width:900px){.meta{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.outcomes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:40px}
+.outcomes div{border-top:2px solid var(--lime);padding-top:14px}
+.outcomes b{display:block;font-family:var(--mono);font-size:clamp(28px,4vw,48px);font-weight:600;letter-spacing:-.02em;line-height:1.05}
+.outcomes span{color:var(--muted);font-size:14px}
+.outcomes .modeled b{color:var(--amber)}
+.outcomes .modeled{border-color:var(--amber)}
+@media (max-width:700px){.outcomes{grid-template-columns:1fr}}
+.case-body{display:grid;grid-template-columns:200px minmax(0,1fr);gap:clamp(24px,5vw,72px);padding:56px 0 80px}
+.toc{position:sticky;top:88px;align-self:start;display:flex;flex-direction:column;gap:2px}
+.toc a{text-decoration:none;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:7px 0 7px 12px;border-left:1px solid var(--line)}
+.toc a:hover{color:var(--ink);border-color:var(--muted)}
+.toc a.on{color:var(--lime);border-color:var(--lime)}
+@media (max-width:900px){.case-body{grid-template-columns:1fr}.toc{display:none}}
+.step{padding:0 0 56px;margin-bottom:56px;border-bottom:1px solid var(--line);scroll-margin-top:90px}
+.step:last-child{border-bottom:0;margin-bottom:0}
+.step > .mono{color:var(--lime);display:block;margin-bottom:10px}
+.step h2{font-size:clamp(26px,3.2vw,40px);line-height:1.08;margin-bottom:20px;font-variation-settings:"wdth" 106;max-width:24ch}
+.step p,.step li{max-width:66ch;color:#D3D6C8}
+.step p{margin:0 0 16px}
+.step ul,.step ol{padding-left:20px;margin:0 0 16px}
+.step li{margin-bottom:8px}
+.step strong{color:var(--ink)}
+.callout{border-left:2px solid var(--lime);padding:6px 0 6px 18px;margin:24px 0;font-size:clamp(19px,2vw,23px);line-height:1.4;color:var(--ink);font-family:var(--display);font-weight:500;max-width:46ch}
+.note{border:1px solid rgba(255,181,71,.4);background:rgba(255,181,71,.06);padding:14px 16px;border-radius:3px;font-size:14px;color:#E9DCC4;max-width:66ch;margin:20px 0}
+.note b{color:var(--amber);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-right:6px}
+.tbl{overflow-x:auto;margin:20px 0;border:1px solid var(--line);border-radius:3px}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--surface)}
+tr:last-child td{border-bottom:0}
+td.pick{color:var(--lime)}
+tr.chosen td{background:rgba(198,244,50,.05)}
+figure{margin:28px 0;border:1px solid var(--line);background:var(--surface);border-radius:4px;padding:20px}
+figure .fig-scroll{overflow-x:auto}
+figcaption{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:14px;line-height:1.6}
+figcaption b{color:var(--lime);font-weight:500}
+.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:24px 0}
+.opt{border:1px solid var(--line);border-radius:4px;padding:16px;background:var(--surface)}
+.opt.chosen{border-color:var(--lime)}
+.opt h4{margin:12px 0 6px;font-family:var(--display);font-size:17px}
+.opt p{font-size:14px;color:var(--muted);margin:0}
+.opt .mono{font-size:10px;color:var(--muted)}
+.opt.chosen .mono{color:var(--lime)}
+.wire{height:110px;border:1px solid var(--line);border-radius:3px;background:var(--bg);padding:8px;display:flex;flex-direction:column;gap:5px}
+.wire i{display:block;height:8px;border-radius:2px;background:var(--line)}
+@media (max-width:760px){.opts{grid-template-columns:1fr}}
+.gates{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:24px 0;border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.gate{padding:18px;border-right:1px solid var(--line);background:var(--surface);position:relative}
+.gate:last-child{border-right:0}
+.gate .mono{color:var(--lime);font-size:11px}
+.gate h4{margin:8px 0 8px;font-family:var(--display);font-size:18px}
+.gate p{margin:0;font-size:13px;color:var(--muted)}
+@media (max-width:760px){.gates{grid-template-columns:1fr 1fr}.gate:nth-child(2){border-right:0}.gate:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.score{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 24px;margin:0;padding:0;list-style:none}
+.score li{display:flex;gap:10px;align-items:baseline;font-size:14px;color:#D3D6C8;margin:0}
+.dot{flex:none;width:9px;height:9px;border-radius:50%;display:inline-block;transform:translateY(-1px)}
+.g{background:var(--lime)}.a{background:var(--amber)}.r{background:var(--red)}
+@media (max-width:640px){.score{grid-template-columns:1fr}}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:12px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:2px;display:inline-block}
+
+/* Control tower UI mock */
+.app{border:1px solid var(--line);border-radius:6px;background:#101209;overflow:hidden;font-size:14px}
+.app-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--surface);flex-wrap:wrap}
+.app-bar .t{font-family:var(--display);font-weight:700}
+.app-bar .s{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.counts{display:flex;gap:8px}
+.q{list-style:none;margin:0;padding:0}
+.q > li{border-bottom:1px solid var(--line)}
+.q button.item{all:unset;box-sizing:border-box;width:100%;display:grid;grid-template-columns:6px 130px minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 16px 14px 0;cursor:pointer}
+.q button.item:hover{background:rgba(255,255,255,.02)}
+.q button.item:focus-visible{outline:2px solid var(--lime);outline-offset:-2px}
+.sev{align-self:stretch;border-radius:0 2px 2px 0}
+.sev.red{background:var(--red)}.sev.amber{background:var(--amber)}.sev.blue{background:#7FB8FF}
+.ord{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.ord b{display:block;color:var(--ink);font-size:14px;font-weight:600}
+.what b{display:block;font-weight:600}
+.what span{color:var(--muted);font-size:13px}
+.pill{font-family:var(--mono);font-size:11px;padding:4px 8px;border-radius:20px;border:1px solid;white-space:nowrap}
+.pill.red{color:var(--red);border-color:rgba(255,107,87,.5)}
+.pill.amber{color:var(--amber);border-color:rgba(255,181,71,.5)}
+.pill.blue{color:#7FB8FF;border-color:rgba(127,184,255,.5)}
+.why{padding:0 16px 16px 150px;display:none;color:#C9CCBE;font-size:13.5px}
+.q > li.open .why{display:block}
+.why p{margin:0 0 10px;max-width:70ch}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.acts button{font-family:var(--mono);font-size:12px;padding:7px 10px;border-radius:3px;border:1px solid var(--line);background:var(--raise);color:var(--ink);cursor:pointer}
+.acts button.go{background:var(--lime);color:var(--bg);border-color:var(--lime);font-weight:600}
+.acts button[disabled]{opacity:.6;cursor:default}
+.ok-row{padding:12px 16px;color:var(--muted);font-family:var(--mono);font-size:12px}
+@media (max-width:700px){.q button.item{grid-template-columns:6px minmax(0,1fr);}.q .ord{grid-column:2}.q .what{grid-column:2}.q .pill{grid-column:2;justify-self:start}.why{padding-left:20px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Yash Shah, home"><i></i>YASH SHAH</a>
+    <nav class="nav" aria-label="Main">
+      <a href="#work">Work</a>
+      <a href="#approach" class="hide-sm">Approach</a>
+      <a href="#about" class="hide-sm">About</a>
+      <a href="#contact" class="cta">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- HOME VIEW -->
+<div class="view" id="v-home">
+  <div class="hero" id="top">
+    <div id="scene" aria-hidden="true"></div>
+    <div class="ticker" aria-hidden="true">
+      <span class="chip live">LINE RUNNING</span>
+      <span class="chip">LATE OUTPUT <b>71% → 35%</b></span>
+      <span class="chip">SCRAP <b>18% LESS</b></span>
+      <span class="chip">DOWNTIME <b>20% LESS</b></span>
+    </div>
+    <div class="hero-copy">
+      <div class="wrap">
+        <span class="mono">Industrial engineer · ASU, May 2027 · Lean Six Sigma Green Belt</span>
+        <h1>I fix the systems that make physical things ship on time.</h1>
+        <p>Operations and manufacturing engineer for factories, warehouses and the robotics and AI companies building what comes next. I find the constraint, change the system around it, and make the fix stick.</p>
+        <div class="btns">
+          <a class="btn primary" href="#work">See the work ↓</a>
+          <a class="btn" href="mailto:yashhetalshah@gmail.com">yashhetalshah@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="mono">Selected work</span><h2>Four case studies</h2></div>
+        <p>Two from the factory floor with measured results, and two concept studies I built to show how I would work at a robotics or operations software startup. Concepts are labeled, and their numbers come from models I wrote.</p>
+      </div>
+      <ol class="index" id="index">
+        <li><a class="row" href="#line-1-recovery" data-peek="line">
+          <span class="n">STN 01</span>
+          <span><h3>The line that was always late</h3><span class="sub">Line 1 shipped most of its orders late. I found the bottleneck, fixed the order sequence and made shortages visible every day.</span><span class="tags"><span class="tag real">Real · Nityam · 2025</span><span class="tag">Production control</span></span></span>
+          <span class="metric"><b class="tab">71% → 35%</b><span>late output</span></span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a></li>
+        <li><a class="row" href="#control-tower" data-peek="tower">
+          <span class="n">STN 02</span>
+          <span><h3>Line Control Tower</h3><span class="sub">The tool I wished I had at Nityam: an exception queue that tells a planner which orders are at risk today and why. A simulation decided what to build first.</span><span class="tags"><span class="tag concept">Concept · 2026</span><span class="tag">Product · Simulation</span></span></span>
+          <span class="metric"><b class="tab">11.5% → 1.7%</b><span>late orders, modeled</span></span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a></li>
+        <li><a class="row" href="#fleet-launch-kit" data-peek="fleet">
+          <span class="n">STN 03</span>
+          <span><h3>Fleet Launch Kit</h3><span class="sub">A deployment system for a warehouse robotics startup that moves site surprises to week one and runs lab and site work in parallel.</span><span class="tags"><span class="tag concept">Concept · 2026</span><span class="tag">Deployment · Critical path</span></span></span>
+          <span class="metric"><b class="tab">10 → 7 wk</b><span>deal to live, modeled</span></span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a></li>
+        <li><a class="row" href="#cummins-tooling" data-peek="cummins">
+          <span class="n">STN 04</span>
+          <span><h3>Tooling and safety at Cummins</h3><span class="sub">Redesigned crank press tooling with three drawings released to production, closed a hand safety hazard and reorganized two tool areas.</span><span class="tags"><span class="tag real">Real · Cummins · 2026</span><span class="tag">Manufacturing engineering</span></span></span>
+          <span class="metric"><b class="tab">18%</b><span>less scrap</span></span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a></li>
+      </ol>
+
+      <div class="more" aria-label="More work">
+        <article>
+          <span class="mono">Khuvi Organics · 2023</span>
+          <h4>Takt based line balancing</h4>
+          <span class="big tab">20% less downtime</span>
+          <p>Rebalanced unloading crews to takt across 12 receiving lines. Time studies and Yamazumi charts also cut dispersion batch time 25%.</p>
+        </article>
+        <article>
+          <span class="mono">ASU · Coursework</span>
+          <h4>SPC capability study</h4>
+          <p>Control charts and a Cp/Cpk study in Minitab, with an FMEA and a control plan for the process.</p>
+        </article>
+        <article>
+          <span class="mono">ASU · Capstone</span>
+          <h4>Inventory control for Apex Moto Works</h4>
+          <p>Inventory control strategy for a real sponsor company, from demand data to reorder policy.</p>
+        </article>
+        <article>
+          <span class="mono">Sunhacks · 2025</span>
+          <h4>InsureScope</h4>
+          <p>AI tool that reads an insurance policy and flags coverage gaps in plain language. Team of four; I led the story and the demo.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="approach">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="mono">Approach</span><h2>How I work</h2></div>
+        <p>The same four moves show up in every project, whether the system is a food plant, an engine line or a robot fleet.</p>
+      </div>
+      <div class="steps">
+        <div><span class="mono">01</span><h3>Go and see</h3><p>Start on the floor and in the data the operation already has. Ask where work waits and what it waits for.</p></div>
+        <div><span class="mono">02</span><h3>Find the constraint</h3><p>One step sets the pace for the whole system. Protecting it beats speeding up everything else.</p></div>
+        <div><span class="mono">03</span><h3>Change the system</h3><p>Fix the sequence, the layout or the information flow before asking people to work harder.</p></div>
+        <div><span class="mono">04</span><h3>Make it stick</h3><p>Standard work, a tracker people trust, and a number someone checks every day.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="fit">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="mono">Where I fit</span><h2>Three kinds of team</h2></div>
+        <p>For recruiters: these are the roles my work maps to, and the evidence for each.</p>
+      </div>
+      <div class="lanes">
+        <div class="lane">
+          <span class="mono">Factories scaling volume</span>
+          <h3>Manufacturing, process and production control engineering</h3>
+          <p>Bottlenecks, sequencing, scrap, line balancing and standard work.</p>
+          <ul><li>Manufacturing Engineer</li><li>Process Engineer</li><li>Industrial Engineer</li><li>Production Control</li></ul>
+          <p class="proof">Proof: Line 1 recovery, Cummins tooling, Khuvi takt balancing.</p>
+        </div>
+        <div class="lane">
+          <span class="mono">Robotics and physical AI</span>
+          <h3>Application and deployment engineering</h3>
+          <p>Taking a customer from signed deal to a live robot with a plan, a checklist and a go-live number.</p>
+          <ul><li>Application Engineer</li><li>Deployment Engineer</li><li>Field Operations</li></ul>
+          <p class="proof">Proof: Fleet Launch Kit concept, Khuvi receiving lines, 3D print lab hands on work.</p>
+        </div>
+        <div class="lane">
+          <span class="mono">Software for operations</span>
+          <h3>Operations expert for AI and ERP products</h3>
+          <p>Translating how plants really run into product decisions, data and workflows.</p>
+          <ul><li>Forward Deployed Engineer</li><li>Solutions Engineer</li><li>Product Ops</li></ul>
+          <p class="proof">Proof: Line Control Tower concept, Oracle ERP tracker automation, InsureScope.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap two">
+      <div class="about">
+        <span class="mono" style="color:var(--lime)">About</span>
+        <p class="lead" style="margin-top:14px">I'm Yash, an industrial engineering student at Arizona State University, originally from Ahmedabad, India.</p>
+        <p>I like problems where a small change in how work flows moves a big number. I have done that on a food plant's receiving dock, a production line's order book and an engine plant's tooling. I am looking for a full time role starting May 2027 and I am open to relocating anywhere in the US.</p>
+        <div class="facts">
+          <div><span class="mono">Degree</span>B.S.E. Industrial Management, minor in Project Management</div>
+          <div><span class="mono">Graduating</span>May 2027, Arizona State University</div>
+          <div><span class="mono">Certification</span>Lean Six Sigma Green Belt</div>
+          <div><span class="mono">Also</span>2x hackathon winner · NSBE · IEEE · ASU 3D print lab aide</div>
+        </div>
+      </div>
+      <div class="tools">
+        <span class="mono" style="color:var(--lime)">Toolbox</span>
+        <dl style="margin-top:14px">
+          <div><dt>Operations and quality</dt><dd>Theory of Constraints, line balancing, takt, time study, Yamazumi, 5S, standard work, SPC, Cp/Cpk, FMEA, control plans, 5 Whys, Fishbone</dd></div>
+          <div><dt>Systems and data</dt><dd>Oracle ERP, Microsoft Fabric, Power BI, Excel VBA, SQL, Python, Minitab</dd></div>
+          <div><dt>Modeling</dt><dd>AnyLogic discrete event simulation, linear programming, Monte Carlo, critical path</dd></div>
+          <div><dt>Design</dt><dd>AutoCAD Mechanical, SolidWorks, drawings released to production, FDM and SLA 3D printing</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="border-bottom:0">
+    <div class="wrap contact">
+      <span class="mono" style="color:var(--lime)">Contact</span>
+      <h2>Have a line that keeps running late?</h2>
+      <p class="addr"><a href="mailto:yashhetalshah@gmail.com">yashhetalshah@gmail.com</a></p>
+      <div class="btns" style="margin-top:24px">
+        <a class="btn primary" href="mailto:yashhetalshah@gmail.com?subject=Hello%20Yash">Email me</a>
+        <a class="btn" href="https://github.com/YashShah2405">GitHub · YashShah2405</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- CASE: LINE 1 RECOVERY -->
+<article class="view case" id="v-line-1-recovery" hidden>
+  <div class="case-top"><div class="wrap">
+    <a class="back" href="#work">← All work</a>
+    <span class="tag real">Real project · Nityam Global Services · 2025</span>
+    <h1>The line that was always late</h1>
+    <p class="summary">Line 1 shipped 71% of its orders late. I found the bottleneck, fixed the order sequence in Oracle ERP and made material shortages visible every day. Late output fell to 35%.</p>
+    <div class="meta">
+      <div><span class="mono">Role</span><p>Production Planning and Supply Chain Intern</p></div>
+      <div><span class="mono">Where</span><p>Nityam Global Services, Ahmedabad, India</p></div>
+      <div><span class="mono">When</span><p>June to August 2025</p></div>
+      <div><span class="mono">Methods</span><p>Theory of Constraints, daily shortage review, ERP re-sequencing</p></div>
+      <div><span class="mono">Tools</span><p>Oracle ERP, Excel VBA, Power BI, Microsoft Fabric</p></div>
+    </div>
+    <div class="outcomes">
+      <div><b class="tab">71% → 35%</b><span>Line 1 late output</span></div>
+      <div><b class="tab">78%</b><span>less time to update the production tracker</span></div>
+      <div><b class="tab">80+</b><span>stakeholders working from one current tracker</span></div>
+    </div>
+  </div></div>
+  <div class="wrap case-body">
+    <nav class="toc" aria-label="Case study steps"></nav>
+    <div>
+      <div class="step" id="s1"><span class="mono">01 · Problem</span><h2>Orders were late, and nobody could see it coming</h2>
+        <p>Line 1 shipped 71% of its orders late, and customers waited weeks instead of days. Planners and more than 80 stakeholders worked from a manual tracker that took hours to update, so shortages and the bottleneck only showed up after an order was already late.</p>
+        <p>It was worth solving because the fix needed no new equipment. The lateness came from the order sequence and from slow information, and both were within a planner's control.</p>
+      </div>
+      <div class="step" id="s2"><span class="mono">02 · Research</span><h2>Two questions for every late order</h2>
+        <p>I started with data the plant already had: order history and status in Oracle ERP, plus the manual tracker. For each late order I asked where it waited and what it was waiting for.</p>
+        <ul>
+          <li><strong>Late orders piled up in front of one station.</strong> That station set the pace for the whole line, so it was the bottleneck.</li>
+          <li><strong>Jobs reached the bottleneck short of material.</strong> The most valuable hours on the line went to waiting.</li>
+          <li><strong>The tracker was a day behind.</strong> By the time a problem was visible, the order was already late.</li>
+        </ul>
+      </div>
+      <div class="step" id="s3"><span class="mono">03 · Strategy</span><h2>Protect the bottleneck</h2>
+        <p>Theory of Constraints says a line can only go as fast as its slowest step. An hour lost there is lost for every order behind it, while an hour saved anywhere else changes nothing. So every change had to pass one test.</p>
+        <p class="callout">Does this keep the bottleneck busy, on the right order, with all its material?</p>
+        <p>That test produced three workstreams: <strong>sequence</strong> (which order runs next at the bottleneck), <strong>supply</strong> (no job reaches it short), and <strong>signal</strong> (everyone sees the same current numbers).</p>
+      </div>
+      <div class="step" id="s4"><span class="mono">04 · Exploration</span><h2>The usual answers each had a cost</h2>
+        <div class="tbl"><table>
+          <thead><tr><th>Option</th><th>What it costs</th><th>Why it falls short</th></tr></thead>
+          <tbody>
+            <tr><td>Overtime on the whole line</td><td>Labor cost every week</td><td>Extra hours at non bottleneck stations add nothing to output</td></tr>
+            <tr><td>Expedite every late order</td><td>Planner time, freight</td><td>When everything is urgent, the sequence gets worse</td></tr>
+            <tr><td>New scheduling software</td><td>Months and budget</td><td>Too slow for a line that was late today</td></tr>
+            <tr class="chosen"><td class="pick">Re-sequence at the bottleneck and clear shortages first</td><td>Planner discipline, daily review</td><td>Chosen: no capital, results within weeks</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="step" id="s5"><span class="mono">05 · Decisions</span><h2>Four decisions and what each traded away</h2>
+        <div class="tbl"><table>
+          <thead><tr><th>Decision</th><th>User need</th><th>Trade-off accepted</th><th>Expected outcome</th></tr></thead>
+          <tbody>
+            <tr><td>Fix the sequence before asking for capacity</td><td>Orders out on time without capital spend</td><td>Some stations sit idle at times, which looks wasteful on a floor walk</td><td>Late output falls fast with zero capex</td></tr>
+            <tr><td>Re-sequence inside Oracle ERP, not a side spreadsheet</td><td>One source of truth for planning and purchasing</td><td>Slower to change than a spreadsheet</td><td>Purchasing and the floor see the same priority</td></tr>
+            <tr><td>Review shortages daily instead of weekly</td><td>Catch material gaps before a job reaches the bottleneck</td><td>More meeting time each day</td><td>Fewer jobs stalled at the bottleneck</td></tr>
+            <tr><td>Automate the tracker with Excel VBA from Oracle ERP</td><td>80+ people need the same current numbers</td><td>VBA is brittle and has one owner, so I documented it</td><td>Updates in minutes instead of hours</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="step" id="s6"><span class="mono">06 · Solution</span><h2>A line that runs in the right order</h2>
+        <figure>
+          <div class="fig-scroll" id="fig-line"></div>
+          <figcaption><b>Fig 1.</b> Line 1 after the change. Jobs are released only when their material is confirmed, and the bottleneck runs in due date order. Station names are generalized.</figcaption>
+        </figure>
+        <ol>
+          <li><strong>Sequence.</strong> I re-sequenced open orders in Oracle ERP so the bottleneck always worked on the order that protected the most due dates.</li>
+          <li><strong>Supply.</strong> A daily shortage review checked material before release, so jobs no longer reached the bottleneck incomplete.</li>
+          <li><strong>Signal.</strong> An Excel VBA tool pulled order status straight from Oracle ERP, cutting tracker update time 78%. I then built an order tracker in Microsoft Fabric with task triggers that sent customers periodic WIP updates.</li>
+        </ol>
+      </div>
+      <div class="step" id="s7"><span class="mono">07 · Outcome</span><h2>Late output fell by more than half</h2>
+        <figure>
+          <div id="fig-late"></div>
+          <figcaption><b>Fig 2.</b> Share of Line 1 output shipped late, before and after the change. Measured.</figcaption>
+        </figure>
+        <ul>
+          <li><strong>Measured:</strong> late output fell from 71% to 35%. Tracker update time fell 78% for more than 80 stakeholders.</li>
+          <li><strong>Observed:</strong> customer delays went from weeks to days, and customers began receiving WIP updates instead of chasing status.</li>
+        </ul>
+        <p class="callout">35% late is still too high. My next step would have been a weekly review of bottleneck load and a small time buffer in front of it.</p>
+        <p><strong>What I learned:</strong> the fastest improvement on a struggling line is usually a planning change. Equipment and headcount come after the sequence is right.</p>
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- CASE: CONTROL TOWER -->
+<article class="view case" id="v-control-tower" hidden>
+  <div class="case-top"><div class="wrap">
+    <a class="back" href="#work">← All work</a>
+    <span class="tag concept">Concept study · Fictional company · 2026</span>
+    <h1>Line Control Tower</h1>
+    <p class="summary">The tool I wished I had at Nityam: a queue that tells a planner which orders are at risk today, why, and what to do. Before drawing a screen, I simulated the two features I could build first. The result reversed my plan.</p>
+    <div class="meta">
+      <div><span class="mono">Type</span><p>Self initiated concept for Throughline, a fictional AI production control startup</p></div>
+      <div><span class="mono">My role</span><p>Problem framing, simulation, product and UI design</p></div>
+      <div><span class="mono">Users</span><p>Production planners, plant managers, customer service</p></div>
+      <div><span class="mono">When</span><p>November 2026</p></div>
+      <div><span class="mono">Tools</span><p>Python and NumPy simulation, HTML prototype</p></div>
+    </div>
+    <div class="outcomes">
+      <div class="modeled"><b class="tab">11.5% → 1.7%</b><span>late orders at 88% load, modeled</span></div>
+      <div class="modeled"><b class="tab">17.6%</b><span>late with due date sorting alone: the feature I almost built first</span></div>
+      <div class="modeled"><b class="tab">3,000</b><span>simulated runs across 4 rules and 3 load levels</span></div>
+    </div>
+  </div></div>
+  <div class="wrap case-body">
+    <nav class="toc" aria-label="Case study steps"></nav>
+    <div>
+      <div class="step" id="s1"><span class="mono">01 · Problem</span><h2>Planners find out an order is late after it is late</h2>
+        <p>In plants of 50 to 500 people, planners still run the schedule from ERP exports in spreadsheets. Late orders and missing parts surface after the due date, when the only options left are overtime, air freight or an apology call.</p>
+        <p>Investors see a market here. Y Combinator has recently backed several companies building software for the manufacturing office, such as Korso, Arzana, Smartbase and Tiny. The open question is what a planner needs first.</p>
+        <div class="note"><b>Concept</b>Throughline is fictional. Every number in this case comes from a model with stated assumptions, not from a customer.</div>
+      </div>
+      <div class="step" id="s2"><span class="mono">02 · Research</span><h2>Starting from the loop I ran by hand</h2>
+        <p>My evidence is the daily loop I ran at Nityam. It is one practitioner's experience, so I treated it as a set of hypotheses and tested the riskiest one before drawing any screens.</p>
+        <figure>
+          <div class="fig-scroll" id="fig-loop"></div>
+          <figcaption><b>Fig 1.</b> The planner's daily loop. Every step is manual, and the information is stale by the time it reaches a decision.</figcaption>
+        </figure>
+        <ul>
+          <li><strong>Pattern:</strong> lateness was decided days earlier, when a job was released without its material.</li>
+          <li><strong>Motivation:</strong> planners want fewer surprises and fewer status calls. They do not want another screen to maintain.</li>
+          <li><strong>Riskiest assumption:</strong> that smarter sequencing is the feature that matters most.</li>
+        </ul>
+      </div>
+      <div class="step" id="s3"><span class="mono">03 · Strategy</span><h2>Three principles</h2>
+        <ol>
+          <li><strong>Exceptions, not everything.</strong> Show only orders that need a decision today. On a normal day that is a handful out of dozens.</li>
+          <li><strong>Every suggestion explains itself in one sentence.</strong> A planner will not act on a recommendation they cannot defend to a supervisor.</li>
+          <li><strong>ERP stays the source of truth.</strong> The tower suggests, the planner decides, and the change writes back to the ERP.</li>
+        </ol>
+      </div>
+      <div class="step" id="s4"><span class="mono">04 · Exploration</span><h2>Three directions</h2>
+        <div class="opts">
+          <div class="opt"><div class="wire"><i style="width:30%"></i><i style="width:80%;margin-left:15%"></i><i style="width:55%;margin-left:5%"></i><i style="width:70%;margin-left:28%"></i><i style="width:40%;margin-left:50%"></i></div><span class="mono">Direction A</span><h4>Drag and drop scheduler</h4><p>Full control on a Gantt chart. Rejected: planners already lack time, and it rebuilds the ERP.</p></div>
+          <div class="opt"><div class="wire" style="flex-direction:row;align-items:flex-end;gap:8px"><i style="height:40%;width:18%"></i><i style="height:70%;width:18%"></i><i style="height:55%;width:18%"></i><i style="height:85%;width:18%"></i></div><span class="mono">Direction B</span><h4>KPI dashboard</h4><p>Easy to build. Rejected: it reports lateness after it happens and asks nothing of anyone.</p></div>
+          <div class="opt chosen"><div class="wire"><i style="background:var(--red);width:100%"></i><i style="background:var(--amber);width:100%"></i><i style="background:var(--amber);width:100%"></i><i style="width:100%;opacity:.5"></i><i style="width:100%;opacity:.5"></i></div><span class="mono">Direction C · chosen</span><h4>Exception queue</h4><p>A short ranked list of orders at risk, each with a reason and one suggested action.</p></div>
+        </div>
+      </div>
+      <div class="step" id="s5"><span class="mono">05 · Decision</span><h2>The simulation reversed my build order</h2>
+        <p>I assumed due date sequencing was the core feature. I modeled a line with one bottleneck at three load levels, with 22% of orders arriving short a component, and tested four rules over 250 simulated runs each.</p>
+        <figure>
+          <div class="legend" id="ct-legend"></div>
+          <div class="fig-scroll" id="fig-ct"></div>
+          <figcaption><b>Fig 2.</b> Share of orders shipped late by planning rule and bottleneck load. Modeled on synthetic orders; mean of 250 runs per bar.</figcaption>
+        </figure>
+        <p>Sorting by due date on its own made lateness <strong>worse</strong>: 17.6% late against 11.5% for first in, first out at 88% load. Urgent jobs that were short of material blocked the machine. Flagging shortages a day ahead did most of the work, and the two together cut late orders to 1.7%.</p>
+        <div class="tbl"><table>
+          <thead><tr><th>Decision</th><th>User need</th><th>Trade-off</th><th>Expected outcome</th></tr></thead>
+          <tbody>
+            <tr><td>Ship shortage flags first, sequencing second</td><td>Stop releasing jobs that will stall</td><td>Needs a purchasing data feed, the hardest integration</td><td>Most of the modeled gain in the first release</td></tr>
+            <tr><td>One sentence "why" on every suggestion</td><td>Defend the change to a supervisor</td><td>Fewer, simpler rules the model can explain</td><td>Higher acceptance of suggestions</td></tr>
+            <tr><td>One click accept or snooze, no auto apply</td><td>Planner stays in control</td><td>Slower than full automation</td><td>Trust first, automation later</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="step" id="s6"><span class="mono">06 · Solution</span><h2>The exception queue</h2>
+        <p>Click any row to see the reasoning and the suggested action.</p>
+        <div class="app" id="tower-app">
+          <div class="app-bar"><div><div class="t">Line 2 · Press cell</div><div class="s">Thu 20 Nov · Shift A · synced with ERP 4 min ago</div></div><div class="counts"><span class="pill red">1 late risk</span><span class="pill amber">1 shortage</span><span class="pill blue">1 promise change</span></div></div>
+          <ul class="q">
+            <li><button class="item" aria-expanded="false"><span class="sev red"></span><span class="ord"><b>#48207</b>Due today 18:00</span><span class="what"><b>Likely to miss today's ship</b><span>9.5 h of work queued at the press ahead of it, 6 h left in the day</span></span><span class="pill red">82% late risk</span></button>
+              <div class="why"><p><strong>Why:</strong> two orders due Monday sit ahead of it. Moving #48207 to the front keeps both Monday orders on time with 7 h to spare.</p><div class="acts"><button class="go">Move to front in ERP</button><button>Snooze 2 h</button></div></div></li>
+            <li><button class="item" aria-expanded="false"><span class="sev amber"></span><span class="ord"><b>#48213</b>Due Fri</span><span class="what"><b>Short: gasket kit GK-40</b><span>Supplier ETA tomorrow 10:00; job reaches the press tonight</span></span><span class="pill amber">Hold release</span></button>
+              <div class="why"><p><strong>Why:</strong> releasing now would stall the press for about 14 h. Running #48219 instead keeps the press busy, and #48213 still ships Friday after the kit lands.</p><div class="acts"><button class="go">Hold and run #48219</button><button>Release anyway</button></div></div></li>
+            <li><button class="item" aria-expanded="false"><span class="sev blue"></span><span class="ord"><b>#48195</b>Promised Mon</span><span class="what"><b>Promise date moved to Tue</b><span>Customer has not been told</span></span><span class="pill blue">Draft ready</span></button>
+              <div class="why"><p><strong>Draft update:</strong> "Your order #48195 will ship Tuesday 25 Nov instead of Monday. The delay is a late component from our supplier; everything else is complete."</p><div class="acts"><button class="go">Send update</button><button>Edit first</button></div></div></li>
+          </ul>
+          <div class="ok-row">41 orders on track · hidden</div>
+        </div>
+        <p style="margin-top:18px">A planner's morning becomes three decisions instead of a spreadsheet rebuild. Status updates to customers are drafted the moment a promise date moves.</p>
+      </div>
+      <div class="step" id="s7"><span class="mono">07 · Outcome</span><h2>What the model says, and what a pilot would prove</h2>
+        <ul>
+          <li><strong>Modeled:</strong> late orders fall from 11.5% to 1.7% at 88% bottleneck load, and from 23.3% to 6.9% at 94%.</li>
+          <li><strong>Assumptions:</strong> one bottleneck, 3 h mean job time, 22% of orders short a part for 8 to 40 h, due dates 3 to 7 days out. The code is public so anyone can change them.</li>
+          <li><strong>Pilot metrics:</strong> share of orders late, planner hours spent on tracker updates, hours from a shortage to a flag, and customer status calls per week.</li>
+        </ul>
+        <p><a class="btn" href="https://github.com/YashShah2405/YashShah2405.github.io/tree/main/sim">Read the model code on GitHub →</a></p>
+        <p style="margin-top:20px"><strong>What I learned:</strong> test the riskiest assumption before designing screens. The feature that felt most "AI" was the one that made things worse on its own.</p>
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- CASE: FLEET LAUNCH KIT -->
+<article class="view case" id="v-fleet-launch-kit" hidden>
+  <div class="case-top"><div class="wrap">
+    <a class="back" href="#work">← All work</a>
+    <span class="tag concept">Concept study · Fictional company · 2026</span>
+    <h1>Fleet Launch Kit</h1>
+    <p class="summary">A deployment system for Kestrel Robotics, a fictional startup that rents robotic pack stations to ecommerce warehouses. It moves site surprises to week one and runs lab and site work in parallel. Modeled time from signed deal to live robots drops from 10 weeks to 7.</p>
+    <div class="meta">
+      <div><span class="mono">Type</span><p>Self initiated concept for a fictional robotics startup</p></div>
+      <div><span class="mono">My role</span><p>Deployment process design, critical path and Monte Carlo modeling, field documentation</p></div>
+      <div><span class="mono">Users</span><p>Application engineers, field deployment team, customer site manager</p></div>
+      <div><span class="mono">When</span><p>November 2026</p></div>
+      <div><span class="mono">Tools</span><p>Python, critical path method, Monte Carlo</p></div>
+    </div>
+    <div class="outcomes">
+      <div class="modeled"><b class="tab">10 → 7 wk</b><span>likely time from signed deal to live, modeled</span></div>
+      <div class="modeled"><b class="tab">12.1 → 8.4 wk</b><span>80th percentile across 20,000 runs</span></div>
+      <div><b class="tab">12</b><span>site readiness checks, each with a named owner</span></div>
+    </div>
+  </div></div>
+  <div class="wrap case-body">
+    <nav class="toc" aria-label="Case study steps"></nav>
+    <div>
+      <div class="step" id="s1"><span class="mono">01 · Problem</span><h2>Revenue starts at go live, and go live keeps slipping</h2>
+        <p>Kestrel earns nothing until robots run in production. Each new site takes about 10 weeks from signed contract, and most of the slip comes from surprises found at install: dead Wi-Fi zones, missing power, carton sizes nobody mentioned.</p>
+        <p>For an early robotics company this is the whole business. Every week saved is a week of revenue, a happier first customer and a faster path to the next site.</p>
+        <div class="note"><b>Concept</b>Kestrel is fictional and the 10 week baseline is a modeling assumption. The research below is real.</div>
+      </div>
+      <div class="step" id="s2"><span class="mono">02 · Research</span><h2>What deployment teams are asked to own</h2>
+        <p>I read current deployment and application engineering job posts at robotics companies. Posts describe the work teams struggle to staff, so they are a good map of where deployments break.</p>
+        <div class="tbl"><table>
+          <thead><tr><th>Signal</th><th>Source</th><th>Design implication</th></tr></thead>
+          <tbody>
+            <tr><td>Recreate the customer's environment in the lab before going on site, then hand off a documented solution and schedule</td><td><a href="https://builtin.com/job/application-engineer/9076471">Ultra, Application Engineer</a></td><td>Lab work can start at kickoff if samples arrive at kickoff</td></tr>
+            <tr><td>Confirm network credentials, docking locations and hardware readiness before deployment</td><td><a href="https://jobgether.com/offer/69ba468524d79271ee0a55af-deployment-engineer">Simbe, Deployment Engineer</a></td><td>A readiness scorecard the customer fills in week one</td></tr>
+            <tr><td>Meet performance expectations before site acceptance testing</td><td><a href="https://startup.jobs/deployment-engineer-osaro-4769066">OSARO, Deployment Engineer</a></td><td>Agree on the acceptance test before anything ships</td></tr>
+            <tr><td>Commissioning gates with documented evidence and handoff ready artifacts</td><td><a href="https://startup.jobs/deployment-engineer-mytra-8699773">Mytra, Deployment Engineer</a></td><td>Four gates, each with exit criteria</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="step" id="s3"><span class="mono">03 · Strategy</span><h2>Find surprises in week one, not week six</h2>
+        <ol>
+          <li><strong>Move discovery left.</strong> A one page scorecard at kickoff surfaces Wi-Fi, power and carton issues while there is time to fix them.</li>
+          <li><strong>Run in parallel what does not depend on each other.</strong> Lab build and customer site fixes can happen at the same time.</li>
+          <li><strong>Agree on "done" before shipping.</strong> A pre agreed acceptance script shortens commissioning.</li>
+        </ol>
+      </div>
+      <div class="step" id="s4"><span class="mono">04 · Exploration</span><h2>Three ways to go faster</h2>
+        <div class="tbl"><table>
+          <thead><tr><th>Option</th><th>Upside</th><th>Why not first</th></tr></thead>
+          <tbody>
+            <tr><td>Hire more field engineers</td><td>More sites at once</td><td>Cost grows with every site, and each site is still 10 weeks</td></tr>
+            <tr><td>Remote commissioning</td><td>Less travel</td><td>Needs a mature product and stable sites</td></tr>
+            <tr class="chosen"><td class="pick">Standard playbook with gates</td><td>Shorter time per site at almost no cost</td><td>Chosen: the cheapest lever an early team controls</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="step" id="s5"><span class="mono">05 · Decision</span><h2>Four gates with exit criteria</h2>
+        <div class="gates">
+          <div class="gate"><span class="mono">Gate 1 · Week 1</span><h4>Kickoff</h4><p>Scorecard sent, top 20 SKU carton samples requested, target units per hour agreed.</p></div>
+          <div class="gate"><span class="mono">Gate 2 · Week 4</span><h4>Lab proven</h4><p>Target rate met on the customer's own cartons in the lab, on video.</p></div>
+          <div class="gate"><span class="mono">Gate 3 · Week 4</span><h4>Site ready</h4><p>All 12 checks green, signed by the site manager.</p></div>
+          <div class="gate"><span class="mono">Gate 4 · Week 7</span><h4>Live</h4><p>Acceptance script passed, then 5 days at target rate.</p></div>
+        </div>
+        <div class="tbl"><table>
+          <thead><tr><th>Decision</th><th>User need</th><th>Trade-off</th><th>Expected outcome</th></tr></thead>
+          <tbody>
+            <tr><td>Ask the customer for samples and site fixes at kickoff</td><td>Field team needs no surprises at install</td><td>Asks more of the customer in week one</td><td>Site issues fixed in parallel with lab work</td></tr>
+            <tr><td>A named owner on every readiness check</td><td>Site manager knows exactly what to do</td><td>A longer kickoff meeting</td><td>Checks close without chasing</td></tr>
+            <tr><td>Fix the acceptance script at Gate 2, with one revision allowed</td><td>Both sides agree what "live" means</td><td>Less flexibility late in the project</td><td>Commissioning drops from 1.5 to 1 week</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="step" id="s6"><span class="mono">06 · Solution</span><h2>The kit: scorecard, runbook and go live dashboard</h2>
+        <figure>
+          <ul class="score">
+            <li><span class="dot g"></span>Wi-Fi coverage at every station</li>
+            <li><span class="dot g"></span>Dedicated power circuit per station</li>
+            <li><span class="dot a"></span>Floor flatness at station footprint</li>
+            <li><span class="dot g"></span>Staging space for inbound crates</li>
+            <li><span class="dot r"></span>Carton samples for top 20 SKUs</li>
+            <li><span class="dot g"></span>Peak volume and target units per hour</li>
+            <li><span class="dot a"></span>WMS integration path agreed</li>
+            <li><span class="dot g"></span>Safety review with site EHS</li>
+            <li><span class="dot g"></span>IT and network contact named</li>
+            <li><span class="dot g"></span>Training slots on each shift</li>
+            <li><span class="dot g"></span>Spare parts location</li>
+            <li><span class="dot g"></span>Escalation contacts both sides</li>
+          </ul>
+          <figcaption><b>Fig 1.</b> Site readiness scorecard for a sample site in week one: 9 green, 2 amber, 1 red. The red item blocks Gate 2.</figcaption>
+        </figure>
+        <p>The runbook walks the field team through each gate with the evidence it needs. The go live dashboard tracks four numbers the customer cares about: units per hour against target, uptime, interventions per 1,000 picks, and open punch list items.</p>
+      </div>
+      <div class="step" id="s7"><span class="mono">07 · Outcome</span><h2>Three weeks sooner, modeled</h2>
+        <figure>
+          <div class="legend"><span><i style="background:var(--lime)"></i>Critical path</span><span><i style="background:#596046"></i>Has slack</span></div>
+          <div class="fig-scroll" id="fig-gantt"></div>
+          <figcaption><b>Fig 2.</b> Deployment schedule with likely task durations. Top: today, sequential. Bottom: with the Launch Kit. Assumed durations; modeled.</figcaption>
+        </figure>
+        <ul>
+          <li><strong>Modeled:</strong> likely time from signed deal to live falls from 10.0 to 7.0 weeks. Across 20,000 Monte Carlo runs with uncertain durations, the 80th percentile falls from 12.1 to 8.4 weeks.</li>
+          <li><strong>Why it holds:</strong> the gain comes from structure. As long as lab build stays the longest task, site fixes and the survey fit inside it.</li>
+          <li><strong>Pilot metrics:</strong> weeks from signature to Gate 4, share of scorecard items closed by week 3, first week uptime, and punch list items open at go live.</li>
+        </ul>
+        <p><a class="btn" href="https://github.com/YashShah2405/YashShah2405.github.io/tree/main/sim">Read the model code on GitHub →</a></p>
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- CASE: CUMMINS -->
+<article class="view case" id="v-cummins-tooling" hidden>
+  <div class="case-top"><div class="wrap">
+    <a class="back" href="#work">← All work</a>
+    <span class="tag real">Real project · Cummins Inc. · 2026</span>
+    <h1>Tooling and safety at Cummins</h1>
+    <p class="summary">A summer as an advanced manufacturing engineering intern on a midrange engine line. I redesigned crank press tooling with three drawings released to production, closed a hand safety hazard and reorganized two tool areas.</p>
+    <div class="meta">
+      <div><span class="mono">Role</span><p>Advanced Manufacturing Engineering Intern</p></div>
+      <div><span class="mono">Where</span><p>Columbus Midrange Engine Plant, Columbus, IN</p></div>
+      <div><span class="mono">When</span><p>June to August 2026</p></div>
+      <div><span class="mono">Methods</span><p>Tooling redesign, 5S, 5 Whys, Fishbone, standard work</p></div>
+      <div><span class="mono">Tools</span><p>AutoCAD Mechanical, SolidWorks</p></div>
+    </div>
+    <div class="outcomes">
+      <div><b class="tab">18%</b><span>less scrap after the crank press tooling redesign</span></div>
+      <div><b class="tab">3</b><span>drawings released to production</span></div>
+      <div><b class="tab">25%</b><span>faster tool retrieval after 5S</span></div>
+    </div>
+  </div></div>
+  <div class="wrap case-body">
+    <nav class="toc" aria-label="Case study steps"></nav>
+    <div>
+      <div class="step" id="s1"><span class="mono">01 · Problem</span><h2>Scrap, a hazard and lost minutes</h2>
+        <p>Three problems shared one line. Crank press tooling was a source of scrap. Operators using a pneumatic torque tool had an exposed hand hazard. And in the Innovation Center and the manufacturing engineering crib, finding the right tool took longer than it should.</p>
+        <div class="note"><b>Note</b>Design details are Cummins confidential, so this case shows the process and results rather than the drawings.</div>
+      </div>
+      <div class="step" id="s2"><span class="mono">02 · Research</span><h2>On the floor first</h2>
+        <ul>
+          <li><strong>Scrap:</strong> I traced scrapped parts back to the press tooling with the senior engineers who owned the line.</li>
+          <li><strong>Hazard:</strong> I watched the torque tool in use to see exactly where a hand could be caught.</li>
+          <li><strong>Tool areas:</strong> I mapped which tools were used most into a heat map of the space.</li>
+          <li><strong>Oil leak:</strong> I ran a 5 Whys and Fishbone analysis on an engine oil leak to document the root cause.</li>
+        </ul>
+      </div>
+      <div class="step" id="s3"><span class="mono">03 · Strategy</span><h2>Fix it at the source</h2>
+        <p>Each fix went where the problem started: the tool that made the scrap, the guard on the tool that caused the hazard, and the layout that caused the searching. Inspection and reminders treat symptoms; design changes remove them.</p>
+      </div>
+      <div class="step" id="s4"><span class="mono">04 · Exploration</span><h2>Options I worked through</h2>
+        <ul>
+          <li><strong>Tooling:</strong> design revisions modeled in AutoCAD Mechanical and reviewed with senior engineers before release.</li>
+          <li><strong>Guard:</strong> a flexible TPU hand guard modeled in SolidWorks, so it protects without slowing the operator.</li>
+          <li><strong>Layout:</strong> the heat map set where each tool should live, with the most used tools closest to the point of use.</li>
+        </ul>
+      </div>
+      <div class="step" id="s5"><span class="mono">05 · Decisions</span><h2>Trade-offs I accepted</h2>
+        <div class="tbl"><table>
+          <thead><tr><th>Decision</th><th>User need</th><th>Trade-off</th><th>Outcome</th></tr></thead>
+          <tbody>
+            <tr><td>Redesign the tooling instead of adding inspection</td><td>Good parts first time</td><td>Engineering review and release time</td><td>18% less scrap; 3 drawings released</td></tr>
+            <tr><td>TPU guard instead of a rigid one</td><td>Operator safety without slowing the job</td><td>Material wears and needs replacing</td><td>Hazard closed</td></tr>
+            <tr><td>Layout by usage heat map, with SOPs</td><td>Find the right tool fast</td><td>Time to re-label and train</td><td>25% faster tool retrieval</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="step" id="s6"><span class="mono">06 · Solution</span><h2>Released to production</h2>
+        <p>Three tooling drawings went into production use. The TPU hand guard went onto the pneumatic torque tool. Both tool areas were reorganized with 5S and written SOPs so the layout survives the next shift change.</p>
+      </div>
+      <div class="step" id="s7"><span class="mono">07 · Outcome</span><h2>Measured on the line</h2>
+        <ul>
+          <li><strong>Scrap:</strong> 18% lower after the tooling redesign.</li>
+          <li><strong>Retrieval:</strong> 25% faster after the 5S reorganization.</li>
+          <li><strong>Safety:</strong> the hand hazard on the torque tool was closed.</li>
+        </ul>
+        <p><strong>What I learned:</strong> in a large plant, a design is only finished when it is released, trained and written down. The drawing is the middle of the job.</p>
+      </div>
+    </div>
+  </div>
+</article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Concept studies use fictional companies. Their numbers come from models I built, with assumptions stated on each page, not from client work.</p>
+    <p>© 2026 Yash Shah</p>
+  </div>
+</footer>
+
+<div class="peek" id="peek" aria-hidden="true"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+"use strict";
+var C={lime:"#C6F432",ink:"#ECEEE4",muted:"#9DA190",line:"#2C3024",surface:"#14160F",bg:"#0D0E0B",amber:"#FFB547",red:"#FF6B57",dim:"#596046"};
+var mono="JetBrains Mono, ui-monospace, Menlo, monospace";
+var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- Charts (inline SVG) ---------- */
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function txt(x,y,s,o){o=o||{};return '<text x="'+x+'" y="'+y+'" fill="'+(o.fill||C.muted)+'" font-family="'+(o.font||mono)+'" font-size="'+(o.size||11)+'" text-anchor="'+(o.anchor||"start")+'"'+(o.weight?' font-weight="'+o.weight+'"':'')+'>'+esc(s)+'</text>'}
+
+function lateChart(){
+  var W=640,H=150,x0=120,x1=W-70,sc=function(v){return x0+(x1-x0)*v/100};
+  var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Late output fell from 71 percent to 35 percent">';
+  [0,25,50,75,100].forEach(function(v){s+='<line x1="'+sc(v)+'" x2="'+sc(v)+'" y1="14" y2="118" stroke="'+C.line+'"/>'+txt(sc(v),136,v+"%",{anchor:"middle"})});
+  [["Before",71,C.dim],["After",35,C.lime]].forEach(function(r,i){var y=24+i*48;
+    s+=txt(x0-14,y+22,r[0],{anchor:"end",fill:C.ink,size:13});
+    s+='<rect x="'+x0+'" y="'+y+'" width="'+(sc(r[1])-x0)+'" height="34" fill="'+r[2]+'" rx="2"/>';
+    s+=txt(sc(r[1])+10,y+22,r[1]+"%",{fill:C.ink,size:15,weight:600});});
+  return s+'</svg>';
+}
+
+function lineFlow(){
+  var W=760,H=200,s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Line flow with shortage check before release and due date sequencing at the bottleneck">';
+  s+='<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="'+C.muted+'"/></marker></defs>';
+  var boxes=[["Release",20,C.line],["Station 1",170,C.line],["Bottleneck",360,C.lime],["Station 3",550,C.line]];
+  var y=90,h=52;
+  boxes.forEach(function(b,i){var w=b[0]==="Bottleneck"?130:110;
+    s+='<rect x="'+b[1]+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="3" fill="'+C.bg+'" stroke="'+b[2]+'" stroke-width="'+(b[0]==="Bottleneck"?2:1)+'"/>';
+    s+=txt(b[1]+w/2,y+31,b[0],{anchor:"middle",fill:b[0]==="Bottleneck"?C.lime:C.ink,size:12});
+  });
+  s+='<line x1="130" y1="116" x2="166" y2="116" stroke="'+C.muted+'" marker-end="url(#ah)"/>';
+  s+='<line x1="280" y1="116" x2="300" y2="116" stroke="'+C.muted+'"/>';
+  for(var q=0;q<4;q++){s+='<rect x="'+(302+q*13)+'" y="106" width="10" height="20" rx="1" fill="'+C.dim+'"/>'}
+  s+='<line x1="354" y1="116" x2="358" y2="116" stroke="'+C.muted+'" marker-end="url(#ah)"/>';
+  s+='<line x1="490" y1="116" x2="546" y2="116" stroke="'+C.muted+'" marker-end="url(#ah)"/>';
+  s+='<line x1="660" y1="116" x2="740" y2="116" stroke="'+C.muted+'" marker-end="url(#ah)"/>'+txt(700,104,"Ship",{anchor:"middle"});
+  s+='<path d="M75,90 L75,48" stroke="'+C.amber+'" stroke-dasharray="3 3"/>';
+  s+='<rect x="10" y="18" width="150" height="30" rx="3" fill="'+C.bg+'" stroke="'+C.amber+'"/>'+txt(85,37,"Daily shortage check",{anchor:"middle",fill:C.amber});
+  s+='<path d="M425,90 L425,48" stroke="'+C.lime+'" stroke-dasharray="3 3"/>';
+  s+='<rect x="330" y="18" width="190" height="30" rx="3" fill="'+C.bg+'" stroke="'+C.lime+'"/>'+txt(425,37,"Due date order, set in ERP",{anchor:"middle",fill:C.lime});
+  s+=txt(328,166,"Queue protected so the bottleneck never starves",{anchor:"start"});
+  s+='<rect x="560" y="18" width="190" height="30" rx="3" fill="'+C.bg+'" stroke="'+C.line+'"/>'+txt(655,37,"Tracker auto updates from ERP",{anchor:"middle",fill:C.ink});
+  return s+'</svg>';
+}
+
+function loopFig(){
+  var steps=["Export from ERP","Rebuild the tracker","Chase shortages","Re-sequence orders","Answer customers"];
+  var W=760,H=150,bw=128,gap=(W-40-bw*5)/4,s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Planner daily loop of five manual steps">';
+  s+='<defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="'+C.muted+'"/></marker></defs>';
+  steps.forEach(function(t,i){var x=20+i*(bw+gap);
+    s+='<rect x="'+x+'" y="30" width="'+bw+'" height="48" rx="3" fill="'+C.bg+'" stroke="'+C.line+'"/>';
+    s+=txt(x+bw/2,58,t,{anchor:"middle",fill:C.ink,size:11});
+    s+=txt(x+10,22,"0"+(i+1),{fill:C.muted,size:10});
+    if(i<4)s+='<line x1="'+(x+bw+2)+'" y1="54" x2="'+(x+bw+gap-3)+'" y2="54" stroke="'+C.muted+'" marker-end="url(#ah2)"/>';
+  });
+  s+='<path d="M'+(W-20-bw/2)+',80 L'+(W-20-bw/2)+',112 L'+(20+bw/2)+',112 L'+(20+bw/2)+',84" fill="none" stroke="'+C.amber+'" stroke-dasharray="4 4" marker-end="url(#ah2)"/>';
+  s+=txt(W/2,132,"Repeat every morning. The data is a day old by the time it drives a decision.",{anchor:"middle",fill:C.amber});
+  return s+'</svg>';
+}
+
+var CT={"80%":[4.6,0.5,6.6,0.1],"88%":[11.5,2.8,17.6,1.7],"94%":[23.3,9.1,34.0,6.9]};
+var CTS=[["First in first out, wait for parts",C.dim],["First in first out + shortage flags","#8FA33A"],["Due date first, wait for parts",C.red],["Due date first + shortage flags",C.lime]];
+function ctChart(){
+  var W=760,H=300,x0=56,x1=W-10,y0=24,y1=H-48,max=40,sy=function(v){return y1-(y1-y0)*v/max};
+  var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Late orders by rule and load">';
+  [0,10,20,30,40].forEach(function(v){s+='<line x1="'+x0+'" x2="'+x1+'" y1="'+sy(v)+'" y2="'+sy(v)+'" stroke="'+C.line+'"/>'+txt(x0-10,sy(v)+4,v+"%",{anchor:"end"})});
+  var groups=Object.keys(CT),gw=(x1-x0)/groups.length,bw=Math.min(36,(gw-60)/4);
+  groups.forEach(function(g,gi){var gx=x0+gi*gw+(gw-bw*4-18)/2;
+    CT[g].forEach(function(v,i){var x=gx+i*(bw+6),y=sy(v);
+      s+='<rect x="'+x+'" y="'+y+'" width="'+bw+'" height="'+(y1-y)+'" fill="'+CTS[i][1]+'" rx="2"/>';
+      s+=txt(x+bw/2,y-6,v.toFixed(1),{anchor:"middle",fill:C.ink,size:10});
+    });
+    s+=txt(x0+gi*gw+gw/2,y1+22,"Bottleneck load "+g,{anchor:"middle",fill:C.ink,size:11});
+  });
+  s+='<line x1="'+x0+'" x2="'+x1+'" y1="'+y1+'" y2="'+y1+'" stroke="'+C.muted+'"/>';
+  return s+'</svg>';
+}
+
+var GB=[["Kickoff and requirements",0,1,1],["Site survey",1,1,1],["Lab build and tuning",2,3,1],["Ship and install",5,1,1],["Site fixes found at install",6,1.5,1],["Commissioning and acceptance",7.5,1.5,1],["Ramp to target rate",9,1,1]];
+var GK=[["Kickoff with readiness scorecard",0,1,1],["Site survey with scorecard",1,0.5,0],["Lab build from customer samples",1,3,1],["Customer site fixes",1.5,1.5,0],["Ship and install",4,1,1],["Commissioning, pre agreed script",5,1,1],["Ramp to target rate",6,1,1]];
+function gantt(){
+  var W=760,lw=230,x0=lw+10,x1=W-20,max=11,sx=function(v){return x0+(x1-x0)*v/max},rh=22;
+  var h1=24+GB.length*rh, h2=h1+44+GK.length*rh, H=h2+40;
+  var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Deployment schedule comparison: 10 weeks today, 7 weeks with the kit">';
+  for(var w=0;w<=max;w++){s+='<line x1="'+sx(w)+'" x2="'+sx(w)+'" y1="14" y2="'+(h2+6)+'" stroke="'+C.line+'"/>';if(w%2===0)s+=txt(sx(w),h2+24,w+" wk",{anchor:"middle"})}
+  function block(rows,top,label,total){
+    s+=txt(0,top-2,label,{fill:C.ink,size:12,weight:600})+txt(x1,top-2,total,{anchor:"end",fill:C.ink,size:12,weight:600});
+    rows.forEach(function(r,i){var y=top+8+i*rh;
+      s+=txt(lw,y+13,r[0],{anchor:"end",size:10.5,fill:r[3]?C.ink:C.muted});
+      s+='<rect x="'+sx(r[1])+'" y="'+y+'" width="'+(sx(r[1]+r[2])-sx(r[1]))+'" height="15" rx="2" fill="'+(r[3]?C.lime:C.dim)+'"/>';
+    });
+  }
+  block(GB,24,"Today: sequential","10.0 wk");
+  block(GK,h1+44,"With the Launch Kit","7.0 wk");
+  return s+'</svg>';
+}
+
+/* Hover previews for the index */
+var PEEK={
+  line:function(){return '<svg viewBox="0 0 300 200"><rect width="300" height="200" fill="'+C.surface+'"/>'+txt(20,32,"LINE 1 · LATE OUTPUT",{size:10})+'<rect x="20" y="60" width="'+(260*.71)+'" height="34" fill="'+C.dim+'"/><rect x="20" y="110" width="'+(260*.35)+'" height="34" fill="'+C.lime+'"/>'+txt(20+260*.71+8,82,"71%",{fill:C.ink,size:13})+txt(20+260*.35+8,132,"35%",{fill:C.ink,size:13})+txt(20,178,"BEFORE / AFTER",{size:10})+'</svg>'},
+  tower:function(){var s='<svg viewBox="0 0 300 200"><rect width="300" height="200" fill="'+C.surface+'"/>'+txt(20,30,"EXCEPTION QUEUE",{size:10});[[C.red,"#48207 · 82% late risk"],[C.amber,"#48213 · short GK-40"],["#7FB8FF","#48195 · promise moved"]].forEach(function(r,i){var y=48+i*40;s+='<rect x="20" y="'+y+'" width="260" height="32" rx="3" fill="'+C.bg+'" stroke="'+C.line+'"/><rect x="20" y="'+y+'" width="4" height="32" fill="'+r[0]+'"/>'+txt(34,y+20,r[1],{fill:C.ink,size:11})});return s+txt(20,184,"41 ON TRACK · HIDDEN",{size:10})+'</svg>'},
+  fleet:function(){var s='<svg viewBox="0 0 300 200"><rect width="300" height="200" fill="'+C.surface+'"/>'+txt(20,30,"DEAL TO LIVE · WEEKS",{size:10});var sc=24;GK.forEach(function(r,i){s+='<rect x="'+(20+r[1]*sc)+'" y="'+(46+i*18)+'" width="'+(r[2]*sc)+'" height="11" rx="2" fill="'+(r[3]?C.lime:C.dim)+'"/>'});return s+txt(20,184,"10 → 7 WEEKS, MODELED",{size:10})+'</svg>'},
+  cummins:function(){return '<svg viewBox="0 0 300 200"><rect width="300" height="200" fill="'+C.surface+'"/>'+txt(20,30,"DWG 1 OF 3 · RELEASED",{size:10})+'<g fill="none" stroke="'+C.lime+'" stroke-width="1.4"><rect x="40" y="70" width="220" height="60" rx="4"/><circle cx="90" cy="100" r="20"/><circle cx="210" cy="100" r="20"/><line x1="40" y1="150" x2="260" y2="150" stroke="'+C.muted+'"/><line x1="40" y1="145" x2="40" y2="155" stroke="'+C.muted+'"/><line x1="260" y1="145" x2="260" y2="155" stroke="'+C.muted+'"/></g>'+txt(150,170,"SCRAP 18% LESS",{anchor:"middle",fill:C.ink,size:11})+'</svg>'}
+};
+
+function drawFigures(){
+  var m={"fig-late":lateChart,"fig-line":lineFlow,"fig-loop":loopFig,"fig-ct":ctChart,"fig-gantt":gantt};
+  Object.keys(m).forEach(function(id){var el=document.getElementById(id);if(el)el.innerHTML=m[id]()});
+  var lg=document.getElementById("ct-legend");
+  if(lg)lg.innerHTML=CTS.map(function(c){return '<span><i style="background:'+c[1]+'"></i>'+esc(c[0])+'</span>'}).join("");
+}
+
+/* ---------- Index hover preview ---------- */
+function initPeek(){
+  var peek=document.getElementById("peek"),idx=document.getElementById("index");
+  if(!idx||!window.matchMedia("(hover:hover)").matches)return;
+  idx.querySelectorAll(".row").forEach(function(r){
+    r.addEventListener("mouseenter",function(){peek.innerHTML=PEEK[r.dataset.peek]();peek.classList.add("on")});
+    r.addEventListener("mouseleave",function(){peek.classList.remove("on")});
+    r.addEventListener("mousemove",function(e){peek.style.left=(e.clientX+190)+"px";peek.style.top=e.clientY+"px"});
+  });
+}
+
+/* ---------- Tower mock interactions ---------- */
+function initTower(){
+  var app=document.getElementById("tower-app");if(!app)return;
+  app.querySelectorAll(".q > li").forEach(function(li){
+    var b=li.querySelector("button.item");
+    b.addEventListener("click",function(){var o=li.classList.toggle("open");b.setAttribute("aria-expanded",o?"true":"false")});
+    li.querySelectorAll(".acts button").forEach(function(a){a.addEventListener("click",function(){
+      li.querySelectorAll(".acts button").forEach(function(x){x.disabled=true});
+      a.textContent=a.classList.contains("go")?"Done in demo ✓":"Noted in demo";
+    })});
+  });
+  var first=app.querySelector(".q > li");first.classList.add("open");first.querySelector("button.item").setAttribute("aria-expanded","true");
+}
+
+/* ---------- Routing ---------- */
+var CASES=["line-1-recovery","control-tower","fleet-launch-kit","cummins-tooling"];
+var HOME_SECTIONS=["work","approach","fit","about","contact","top"];
+var STEP_NAMES=["Problem","Research","Strategy","Exploration","Decision","Solution","Outcome"];
+function buildTocs(){
+  document.querySelectorAll(".case").forEach(function(c){
+    var toc=c.querySelector(".toc"),steps=c.querySelectorAll(".step");
+    toc.innerHTML=Array.prototype.map.call(steps,function(st,i){return '<a href="#'+c.id.slice(2)+'" data-step="'+i+'">0'+(i+1)+' '+STEP_NAMES[i]+'</a>'}).join("");
+    toc.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();steps[+a.dataset.step].scrollIntoView({behavior:reduce?"auto":"smooth"})})});
+    if("IntersectionObserver" in window){
+      var io=new IntersectionObserver(function(ents){ents.forEach(function(en){if(en.isIntersecting){var i=Array.prototype.indexOf.call(steps,en.target);toc.querySelectorAll("a").forEach(function(a,j){a.classList.toggle("on",j===i)})}})},{rootMargin:"-40% 0px -55% 0px"});
+      steps.forEach(function(st){io.observe(st)});
+    }
+  });
+}
+var sceneApi=null;
+function route(){
+  var h=(location.hash||"").replace("#","");
+  var isCase=CASES.indexOf(h)>-1;
+  document.getElementById("v-home").hidden=isCase;
+  CASES.forEach(function(c){document.getElementById("v-"+c).hidden=(c!==h)});
+  if(sceneApi)sceneApi.active(!isCase);
+  if(isCase){window.scrollTo(0,0);document.title=document.querySelector("#v-"+h+" h1").textContent+" · Yash Shah";}
+  else{document.title="Yash Shah Portfolio";
+    if(h&&HOME_SECTIONS.indexOf(h)>-1){var el=document.getElementById(h);if(el)requestAnimationFrame(function(){el.scrollIntoView({behavior:"auto"})})}
+    else if(!h)window.scrollTo(0,0);
+  }
+}
+
+/* ---------- 3D production line ---------- */
+function initScene(){
+  var wrap=document.getElementById("scene");
+  if(!window.THREE){wrap.className="noscene";return null}
+  var renderer;
+  try{renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:"low-power"})}catch(e){wrap.className="noscene";return null}
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.75));
+  wrap.appendChild(renderer.domElement);
+  var scene=new THREE.Scene();
+  scene.background=new THREE.Color(C.bg);
+  scene.fog=new THREE.Fog(C.bg,16,38);
+  var camera=new THREE.PerspectiveCamera(32,1,0.1,100);
+
+  scene.add(new THREE.HemisphereLight(0xe6ecd6,0x0d0e0b,0.6));
+  var key=new THREE.DirectionalLight(0xffffff,0.85);key.position.set(5,10,7);scene.add(key);
+  var rim=new THREE.DirectionalLight(0xc6f432,0.25);rim.position.set(-6,4,-6);scene.add(rim);
+  var scanLight=new THREE.PointLight(0xc6f432,0.0,6);scanLight.position.set(0.2,2.0,0);scene.add(scanLight);
+
+  var grid=new THREE.GridHelper(80,80,0x2c3024,0x1a1d14);scene.add(grid);
+
+  function mat(c,o){var p={color:c,roughness:0.75,metalness:0.15};for(var k in o)p[k]=o[k];return new THREE.MeshStandardMaterial(p)}
+  function box(w,h,d,m){return new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m)}
+
+  var frameM=mat(0x23271c),legM=mat(0x1b1e15);
+  var frame=box(18,0.35,1.6,frameM);frame.position.set(0,0.75,0);scene.add(frame);
+  var cnv=document.createElement("canvas");cnv.width=256;cnv.height=32;var cx=cnv.getContext("2d");
+  cx.fillStyle="#15170f";cx.fillRect(0,0,256,32);cx.fillStyle="#262a1e";for(var i=0;i<256;i+=16)cx.fillRect(i,0,5,32);
+  var tex=new THREE.CanvasTexture(cnv);tex.wrapS=tex.wrapT=THREE.RepeatWrapping;tex.repeat.set(9,1);
+  var belt=new THREE.Mesh(new THREE.PlaneGeometry(18,1.3),new THREE.MeshStandardMaterial({map:tex,roughness:0.95}));
+  belt.rotation.x=-Math.PI/2;belt.position.set(0,0.93,0);scene.add(belt);
+  var railM=new THREE.MeshBasicMaterial({color:0xc6f432});
+  [-0.79,0.79].forEach(function(z){var r=box(18,0.035,0.035,railM);r.position.set(0,0.95,z);scene.add(r)});
+  for(var x=-8.5;x<=8.5;x+=2.125){[-0.62,0.62].forEach(function(z){var l=box(0.12,0.6,0.12,legM);l.position.set(x,0.3,z);scene.add(l)})}
+
+  // scanner gate
+  var GX=0.2;var gateM=mat(0x2c3024);
+  var gate=new THREE.Group();gate.position.set(GX,0,0);
+  [-1.0,1.0].forEach(function(z){var p=box(0.14,1.8,0.14,gateM);p.position.set(0,1.65,z);gate.add(p)});
+  var gtop=box(0.3,0.16,2.14,gateM);gtop.position.set(0,2.55,0);gate.add(gtop);
+  var beamM=new THREE.MeshBasicMaterial({color:0xc6f432,transparent:true,opacity:0.06,side:THREE.DoubleSide,depthWrite:false});
+  var beam=new THREE.Mesh(new THREE.PlaneGeometry(1.86,1.5),beamM);beam.rotation.y=Math.PI/2;beam.position.set(0,1.72,0);gate.add(beam);
+  var ledM=new THREE.MeshBasicMaterial({color:0xc6f432});var led=box(0.06,0.04,1.9,ledM);led.position.set(0.16,2.47,0);gate.add(led);
+  scene.add(gate);
+
+  // parcels
+  var cardboard=[0x8a7b60,0x9a8a6c,0x7a6d55,0xa39477];
+  var tapeM=mat(0xd8d3c2,{roughness:0.5});
+  var parcels=[],spacing=2.25,speed=0.85,span=18;
+  for(var p=0;p<8;p++){
+    var w=0.55+Math.random()*0.35,h=0.32+Math.random()*0.3,d=0.5+Math.random()*0.3;
+    var g=new THREE.Group();
+    var b=box(w,h,d,mat(cardboard[p%4],{roughness:0.9,metalness:0}));g.add(b);
+    var t=box(w+0.005,0.012,0.1,tapeM);t.position.y=h/2+0.004;g.add(t);
+    g.position.set(-span/2+p*spacing,0.93+h/2,(Math.random()-0.5)*0.25);
+    g.userData.h=h;scene.add(g);parcels.push(g);
+  }
+
+  // pallet with stack
+  var palM=mat(0x3a3326);
+  var pallet=box(1.3,0.16,1.1,palM);pallet.position.set(2.6,0.08,-3.4);scene.add(pallet);
+  var stackA=box(0.7,0.45,0.55,mat(0x8a7b60,{metalness:0}));stackA.position.set(2.35,0.385,-3.5);scene.add(stackA);
+  var stackB=box(0.55,0.38,0.5,mat(0x9a8a6c,{metalness:0}));stackB.position.set(2.95,0.35,-3.25);scene.add(stackB);
+
+  // robot arm
+  var armM=mat(0xdfe3d3,{roughness:0.45,metalness:0.25}),jointM=mat(0x2c3024,{roughness:0.5}),accentM=new THREE.MeshBasicMaterial({color:0xc6f432});
+  var base=new THREE.Mesh(new THREE.CylinderGeometry(0.42,0.5,0.3,32),jointM);base.position.set(2.6,0.15,-1.7);scene.add(base);
+  var ring=new THREE.Mesh(new THREE.TorusGeometry(0.44,0.02,8,48),accentM);ring.rotation.x=Math.PI/2;ring.position.set(2.6,0.31,-1.7);scene.add(ring);
+  var turret=new THREE.Group();turret.position.set(2.6,0.3,-1.7);scene.add(turret);
+  var tbody=new THREE.Mesh(new THREE.CylinderGeometry(0.3,0.34,0.4,24),armM);tbody.position.y=0.2;turret.add(tbody);
+  var L1=1.55,L2=1.35,SH=0.4;
+  var shoulder=new THREE.Group();shoulder.position.y=SH;turret.add(shoulder);
+  var sj=new THREE.Mesh(new THREE.CylinderGeometry(0.2,0.2,0.46,20),jointM);sj.rotation.z=Math.PI/2;shoulder.add(sj);
+  var up=box(0.22,L1,0.24,armM);up.position.y=L1/2;shoulder.add(up);
+  var elbow=new THREE.Group();elbow.position.y=L1;shoulder.add(elbow);
+  var ej=new THREE.Mesh(new THREE.CylinderGeometry(0.16,0.16,0.38,20),jointM);ej.rotation.z=Math.PI/2;elbow.add(ej);
+  var fore=box(0.18,L2,0.2,armM);fore.position.y=L2/2;elbow.add(fore);
+  var wrist=new THREE.Group();wrist.position.y=L2;elbow.add(wrist);
+  var head=box(0.34,0.12,0.34,jointM);wrist.add(head);
+  var tip=new THREE.Object3D();tip.position.y=0.2;wrist.add(tip);
+  [-0.12,0.12].forEach(function(xx){var f=box(0.04,0.22,0.16,accentM);f.position.set(xx,0.14,0);wrist.add(f)});
+  var held=new THREE.Group();var hb=box(0.6,0.4,0.55,mat(0x9a8a6c,{metalness:0}));held.add(hb);var ht=box(0.605,0.012,0.1,tapeM);ht.position.y=0.204;held.add(ht);held.visible=false;scene.add(held);
+
+  // station labels
+  function label(text,x,y,z){
+    var c=document.createElement("canvas");c.width=512;c.height=96;var g2=c.getContext("2d");
+    g2.fillStyle="rgba(13,14,11,0.85)";g2.fillRect(0,0,512,96);g2.strokeStyle="#C6F432";g2.lineWidth=3;g2.strokeRect(2,2,508,92);
+    g2.fillStyle="#C6F432";g2.font="600 40px JetBrains Mono, monospace";g2.textBaseline="middle";g2.fillText(text,24,50);
+    var sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthWrite:false}));
+    sp.scale.set(1.9,0.36,1);sp.position.set(x,y,z);scene.add(sp);return sp;
+  }
+  label("STN 02 · PICK",2.6,3.75,-1.7);
+  var outM=mat(0x2c3024);var outBox=box(1.2,0.9,1.5,outM);outBox.position.set(7.2,0.45,-1.6);scene.add(outBox);
+
+  // IK helper: d = horizontal reach from shoulder, h = height relative to shoulder
+  function ik(d,h){
+    var r=Math.min(Math.sqrt(d*d+h*h),L1+L2-0.01);
+    var ce=(r*r-L1*L1-L2*L2)/(2*L1*L2);ce=Math.max(-1,Math.min(1,ce));
+    var e=Math.acos(ce);
+    var phi=Math.atan2(d,h);
+    var s=phi-Math.atan2(L2*Math.sin(e),L1+L2*Math.cos(e));
+    return [s,e];
+  }
+  var SHY=0.3+SH;
+  var K=[[0,0,1.2,1.4],[1.0,0,1.7,1.25+0.12-SHY],[1.5,0,1.7,1.25+0.12-SHY],[2.4,0,1.3,1.7],[3.6,Math.PI,1.3,1.5],[4.4,Math.PI,1.7,0.92-SHY],[4.9,Math.PI,1.7,0.92-SHY],[5.8,Math.PI,1.2,1.5],[7.0,0,1.2,1.4]];
+  function smooth(t){return t*t*(3-2*t)}
+  function pose(t){
+    t=t%7;for(var k=0;k<K.length-1;k++){if(t>=K[k][0]&&t<=K[k+1][0]){var a=K[k],b=K[k+1],u=smooth((t-a[0])/(b[0]-a[0]));return [a[1]+(b[1]-a[1])*u,a[2]+(b[2]-a[2])*u,a[3]+(b[3]-a[3])*u]}}
+    return [0,1.2,1.4];
+  }
+
+  var W=1,H=1;
+  function resize(){
+    W=wrap.clientWidth;H=wrap.clientHeight;renderer.setSize(W,H,false);
+    camera.aspect=W/H;
+    var narrow=W<760;
+    if(narrow){camera.position.set(9,8.5,14);camera.setViewOffset(W,H,-W*0.08,H*0.2,W,H)}
+    else{camera.position.set(7.4,5.4,10.2);camera.setViewOffset(W,H,-W*0.17,-H*0.04,W,H)}
+    camera.updateProjectionMatrix();
+  }
+  var look=new THREE.Vector3(1.2,1.0,-0.8),mx=0,my=0,tmp=new THREE.Vector3();
+  window.addEventListener("pointermove",function(e){mx=(e.clientX/window.innerWidth-0.5);my=(e.clientY/window.innerHeight-0.5)},{passive:true});
+  window.addEventListener("resize",resize);
+  resize();
+
+  var clock=new THREE.Clock(),t=0,visible=true,routeOn=true,running=false,basePos=camera.position.clone();
+  function frameAt(dt){
+    t+=dt;
+    tex.offset.x-=dt*speed/2;
+    var pulse=0;
+    parcels.forEach(function(g){g.position.x+=dt*speed;if(g.position.x>span/2)g.position.x-=span;
+      var dx=Math.abs(g.position.x-GX);if(dx<0.5)pulse=Math.max(pulse,1-dx/0.5)});
+    beamM.opacity=0.05+pulse*0.32;scanLight.intensity=pulse*1.4;
+    var ps=pose(t);turret.rotation.y=ps[0];
+    var a=ik(ps[1],ps[2]);shoulder.rotation.x=a[0];elbow.rotation.x=a[1];wrist.rotation.x=Math.PI-a[0]-a[1];
+    var tm=t%7;held.visible=tm>1.45&&tm<4.65;
+    if(held.visible){tip.getWorldPosition(tmp);held.position.set(tmp.x,tmp.y-0.12,tmp.z);held.rotation.y=turret.rotation.y}
+    var narrow=W<760,base2=narrow?new THREE.Vector3(9,8.5,14):new THREE.Vector3(7.4,5.4,10.2);
+    camera.position.set(base2.x+mx*1.4+Math.sin(t*0.12)*0.4,base2.y-my*0.8,base2.z);
+    camera.lookAt(look);
+    renderer.render(scene,camera);
+  }
+  function loop(){if(!running)return;frameAt(Math.min(clock.getDelta(),0.05));requestAnimationFrame(loop)}
+  function update(){var should=visible&&routeOn&&!reduce;if(should&&!running){running=true;clock.getDelta();requestAnimationFrame(loop)}else if(!should){running=false}}
+  if("IntersectionObserver" in window){new IntersectionObserver(function(e){visible=e[0].isIntersecting;update()}).observe(wrap)}
+  frameAt(2.0);
+  update();
+  return {active:function(on){routeOn=on;if(on){resize();frameAt(0)}update()}};
+}
+
+drawFigures();buildTocs();initTower();initPeek();
+try{sceneApi=initScene()}catch(e){document.getElementById("scene").className="noscene"}
+window.addEventListener("hashchange",route);route();
+})();
+</script>
+</body>
+</html>
