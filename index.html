@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Yash Shah Portfolio</title>
-<meta name="description" content="Yash Shah, industrial and operations engineer. I fix the systems that make physical things ship on time: production control, line balancing, deployment planning and operations tooling.">
-<meta property="og:title" content="Yash Shah, Operations Engineer">
+<meta name="description" content="Yash Shah, manufacturing and industrial engineer (ASU, May 2027). Tooling, line balancing, in process quality and production control for factories and robotics teams scaling their build.">
+<meta property="og:title" content="Yash Shah, Manufacturing and Operations Engineer">
 <meta property="og:description" content="Line 1 late output cut from 71% to 35%. Scrap cut 18%. Case studies in production control, deployment and operations software.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230D0E0B'/%3E%3Crect x='6' y='19' width='20' height='3' fill='%23C6F432'/%3E%3Crect x='9' y='10' width='7' height='7' fill='%23ECEEE4'/%3E%3Crect x='18' y='12' width='5' height='5' fill='%239A9E8C'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -117,7 +117,7 @@ section{padding:clamp(64px,10vw,120px) 0;border-bottom:1px solid var(--line)}
 @media (hover:none),(max-width:860px){.peek{display:none}}
 
 /* More work */
-.more{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:56px}
+.more{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:56px}
 .more article{background:var(--bg);padding:24px;display:flex;flex-direction:column;gap:10px}
 .more h4{margin:0;font-family:var(--display);font-size:19px;line-height:1.2;font-variation-settings:"wdth" 104}
 .more p{margin:0;color:var(--muted);font-size:15px}
@@ -125,6 +125,25 @@ section{padding:clamp(64px,10vw,120px) 0;border-bottom:1px solid var(--line)}
 .more .big{font-family:var(--mono);font-size:22px;color:var(--lime);font-weight:600}
 @media (max-width:1000px){.more{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.more{grid-template-columns:1fr}}
+
+/* Proof strip */
+.strip{border-bottom:1px solid var(--line);background:var(--surface)}
+.strip .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;padding-top:26px;padding-bottom:26px}
+.strip b{display:block;font-family:var(--mono);font-size:clamp(22px,2.6vw,32px);font-weight:600;letter-spacing:-.01em;color:var(--ink);line-height:1.1}
+.strip span{display:block;font-size:14px;color:#C9CCBE;margin-top:4px}
+.strip i{font-style:normal;display:block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--lime);margin-top:6px}
+@media (max-width:760px){.strip .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Capabilities */
+.caps{border-top:1px solid var(--line)}
+.cap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr) minmax(0,1.1fr);gap:28px;padding:26px 0;border-bottom:1px solid var(--line);align-items:start}
+.cap h3{font-size:clamp(20px,2vw,24px);line-height:1.15;font-variation-settings:"wdth" 106}
+.cap h3 .mono{display:block;color:var(--muted);font-size:11px;font-weight:400;margin-bottom:8px}
+.cap p{margin:0;color:#C9CCBE;font-size:15px}
+.cap p b{color:var(--lime);font-family:var(--mono);font-weight:600}
+.cap ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start}
+.cap li{font-family:var(--mono);font-size:11px;padding:4px 7px;border:1px solid var(--line);border-radius:2px;color:#C9CCBE}
+@media (max-width:900px){.cap{grid-template-columns:1fr;gap:12px}}
 
 /* Approach */
 .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;counter-reset:s}
@@ -279,8 +298,9 @@ figcaption b{color:var(--lime);font-weight:500}
     <a class="brand" href="#top" aria-label="Yash Shah, home"><i></i>YASH SHAH</a>
     <nav class="nav" aria-label="Main">
       <a href="#work">Work</a>
-      <a href="#approach" class="hide-sm">Approach</a>
+      <a href="#skills" class="hide-sm">Skills</a>
       <a href="#about" class="hide-sm">About</a>
+      <a href="https://www.linkedin.com/in/yashshah2005" class="hide-sm" target="_blank" rel="noopener">LinkedIn ↗</a>
       <a href="#contact" class="cta">Contact</a>
     </nav>
   </div>
@@ -299,14 +319,24 @@ figcaption b{color:var(--lime);font-weight:500}
     </div>
     <div class="hero-copy">
       <div class="wrap">
-        <span class="mono">Industrial engineer · ASU, May 2027 · Lean Six Sigma Green Belt</span>
+        <span class="mono">Manufacturing and industrial engineer · ASU, May 2027 · Lean Six Sigma Green Belt</span>
         <h1>I fix the systems that make physical things ship on time.</h1>
-        <p>Operations and manufacturing engineer for factories, warehouses and the robotics and AI companies building what comes next. I find the constraint, change the system around it, and make the fix stick.</p>
+        <p>Manufacturing and operations engineer for factories and the robotics and AI companies scaling their build. I find the constraint, change the system around it, and make the fix stick with better tooling, a balanced line, quality checks and data the floor trusts.</p>
         <div class="btns">
           <a class="btn primary" href="#work">See the work ↓</a>
           <a class="btn" href="mailto:yashhetalshah@gmail.com">yashhetalshah@gmail.com</a>
+          <a class="btn" href="https://www.linkedin.com/in/yashshah2005" target="_blank" rel="noopener">LinkedIn ↗</a>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="strip" aria-label="Results at a glance">
+    <div class="wrap">
+      <div><b class="tab">71% → 35%</b><span>late output on a production line</span><i>Nityam · 2025</i></div>
+      <div><b class="tab">18%</b><span>less scrap from redesigned press tooling</span><i>Cummins · 2026</i></div>
+      <div><b class="tab">20%</b><span>less downtime across 12 receiving lines</span><i>Khuvi · 2023</i></div>
+      <div><b class="tab">3</b><span>manufacturing internships before graduating</span><i>India and the US</i></div>
     </div>
   </div>
 
@@ -337,7 +367,7 @@ figcaption b{color:var(--lime);font-weight:500}
         </a></li>
         <li><a class="row" href="#cummins-tooling" data-peek="cummins">
           <span class="n">STN 04</span>
-          <span><h3>Tooling and safety at Cummins</h3><span class="sub">Redesigned crank press tooling with three drawings released to production, closed a hand safety hazard and reorganized two tool areas.</span><span class="tags"><span class="tag real">Real · Cummins · 2026</span><span class="tag">Manufacturing engineering</span></span></span>
+          <span><h3>Tooling and safety at Cummins</h3><span class="sub">Redesigned and CNC machined crank press tooling with three drawings released to production, closed a pinch point hazard and flagged 100 high risk stations for ergonomic redesign.</span><span class="tags"><span class="tag real">Real · Cummins · 2026</span><span class="tag">Manufacturing engineering</span></span></span>
           <span class="metric"><b class="tab">18%</b><span>less scrap</span></span>
           <span class="arrow" aria-hidden="true">→</span>
         </a></li>
@@ -353,18 +383,71 @@ figcaption b{color:var(--lime);font-weight:500}
         <article>
           <span class="mono">ASU · Coursework</span>
           <h4>SPC capability study</h4>
-          <p>Control charts and a Cp/Cpk study in Minitab, with an FMEA and a control plan for the process.</p>
+          <p>Charted 100 shaft diameter measurements in 20 subgroups on X bar and R charts in Minitab, quantified Cp/Cpk, ranked failure modes with an FMEA and wrote the control plan.</p>
         </article>
         <article>
           <span class="mono">ASU · Capstone</span>
           <h4>Inventory control for Apex Moto Works</h4>
-          <p>Inventory control strategy for a real sponsor company, from demand data to reorder policy.</p>
+          <p>EOQ, safety stock and reorder points for 25 ABC classified SKUs for a real sponsor, with a turnover and stockout dashboard.</p>
         </article>
         <article>
-          <span class="mono">Sunhacks · 2025</span>
+          <span class="mono">Hackathon project</span>
           <h4>InsureScope</h4>
-          <p>AI tool that reads an insurance policy and flags coverage gaps in plain language. Team of four; I led the story and the demo.</p>
+          <p>Computer vision camera tool that flags uninsured items in a home. Team of four; I led problem framing and the pitch.</p>
         </article>
+        <article>
+          <span class="mono">IISE at ASU x ThinkSolve · 2025</span>
+          <h4>Capacity analysis and forecasting</h4>
+          <span class="big">1st place</span>
+          <p>Demand side plan on a team of four to cut peak load stress on Arizona's power grid.</p>
+        </article>
+        <article>
+          <span class="mono">ASU 3D Print Lab · 2026</span>
+          <h4>Hands on prototyping</h4>
+          <span class="big tab">30+ jobs a week</span>
+          <p>Ran FDM and SLA printers and troubleshot calibration and slicing failures.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="mono">Skills, with proof</span><h2>What I bring to a build line</h2></div>
+        <p>Every skill on this page points to work I have done. The numbers come from internships and coursework, measured on the job.</p>
+      </div>
+      <div class="caps">
+        <div class="cap">
+          <h3><span class="mono">01</span>Line setup and balancing</h3>
+          <p>Rebalanced unloading crews to takt across <b>12 lines</b> at Khuvi, cutting receiving downtime <b>20%</b>. Time studies and Yamazumi charts removed non value added steps and cut batch time <b>25%</b>.</p>
+          <ul><li>Takt time</li><li>Line balancing</li><li>Yamazumi</li><li>Time study</li><li>VSM</li><li>Standard work</li></ul>
+        </div>
+        <div class="cap">
+          <h3><span class="mono">02</span>Tooling and hardware design</h3>
+          <p>Redesigned and CNC machined crank press tooling at Cummins, releasing <b>3 production drawings</b> and cutting scrap <b>18%</b>. Designed a TPU hand guard in CAD that removed a pinch point hazard (est. <b>$150K a year</b>).</p>
+          <ul><li>SolidWorks</li><li>Creo</li><li>AutoCAD</li><li>GD&amp;T</li><li>DFM/DFA</li><li>CNC machining</li><li>FDM/SLA printing</li></ul>
+        </div>
+        <div class="cap">
+          <h3><span class="mono">03</span>Quality checks and root cause</h3>
+          <p>Built X bar and R charts from <b>100 measurements</b> and quantified Cp/Cpk, then turned an FMEA into a control plan. Closed a safety CAPA at Khuvi with root cause analysis and <b>5 SOPs</b>.</p>
+          <ul><li>SPC</li><li>Cp/Cpk</li><li>FMEA</li><li>Control plans</li><li>8D</li><li>5 Whys</li><li>CAPA</li><li>DOE</li><li>Gage R&amp;R</li></ul>
+        </div>
+        <div class="cap">
+          <h3><span class="mono">04</span>Production control and KPIs</h3>
+          <p>Broke a bottleneck and resequenced Oracle ERP orders, taking late output from <b>71% to 35%</b>. Daily Power BI WIP reviews flagged shortages early and cut order delays from weeks to days.</p>
+          <ul><li>Oracle ERP</li><li>Theory of Constraints</li><li>Scheduling</li><li>Capacity planning</li><li>OEE</li><li>Power BI</li></ul>
+        </div>
+        <div class="cap">
+          <h3><span class="mono">05</span>Safety, ergonomics and 5S</h3>
+          <p>Mapped 5 years of incident data into a heat map that flagged <b>100 high risk stations</b> for ergonomic redesign. Set up 5S and standard work that cut tool retrieval <b>25%</b> for 60 engineers.</p>
+          <ul><li>Ergonomics</li><li>5S</li><li>Kaizen</li><li>SMED</li><li>Standard work</li><li>SOPs</li></ul>
+        </div>
+        <div class="cap">
+          <h3><span class="mono">06</span>Automation and data</h3>
+          <p>Automated Oracle ERP data pulls with Excel VBA, cutting tracker update time <b>78%</b> for 80+ stakeholders. Built a Microsoft Fabric order tracker with scheduled triggers for customer WIP updates.</p>
+          <ul><li>Excel VBA</li><li>Microsoft Fabric</li><li>Python</li><li>SQL</li><li>Minitab</li><li>AnyLogic</li><li>Tableau</li></ul>
+        </div>
       </div>
     </div>
   </section>
@@ -394,8 +477,8 @@ figcaption b{color:var(--lime);font-weight:500}
         <div class="lane">
           <span class="mono">Factories scaling volume</span>
           <h3>Manufacturing, process and production control engineering</h3>
-          <p>Bottlenecks, sequencing, scrap, line balancing and standard work.</p>
-          <ul><li>Manufacturing Engineer</li><li>Process Engineer</li><li>Industrial Engineer</li><li>Production Control</li></ul>
+          <p>Build lines, tooling, bottlenecks, scrap, line balancing and standard work.</p>
+          <ul><li>Manufacturing Engineer</li><li>Process Engineer</li><li>Industrial Engineer</li><li>Production Control</li><li>Robotics Manufacturing</li></ul>
           <p class="proof">Proof: Line 1 recovery, Cummins tooling, Khuvi takt balancing.</p>
         </div>
         <div class="lane">
@@ -432,10 +515,10 @@ figcaption b{color:var(--lime);font-weight:500}
       <div class="tools">
         <span class="mono" style="color:var(--lime)">Toolbox</span>
         <dl style="margin-top:14px">
-          <div><dt>Operations and quality</dt><dd>Theory of Constraints, line balancing, takt, time study, Yamazumi, 5S, standard work, SPC, Cp/Cpk, FMEA, control plans, 5 Whys, Fishbone</dd></div>
-          <div><dt>Systems and data</dt><dd>Oracle ERP, Microsoft Fabric, Power BI, Excel VBA, SQL, Python, Minitab</dd></div>
+          <div><dt>Operations and quality</dt><dd>Theory of Constraints, line balancing, takt, time study, Yamazumi, VSM, Kaizen, SMED, 5S, standard work, OEE, SPC, Cp/Cpk, FMEA, DOE, Gage R&amp;R, control plans, CAPA, 8D, 5 Whys, Fishbone</dd></div>
+          <div><dt>Systems and data</dt><dd>Oracle ERP, Microsoft Fabric, Power BI, Tableau, Excel VBA, SQL, Python, Minitab</dd></div>
           <div><dt>Modeling</dt><dd>AnyLogic discrete event simulation, linear programming, Monte Carlo, critical path</dd></div>
-          <div><dt>Design</dt><dd>AutoCAD Mechanical, SolidWorks, drawings released to production, FDM and SLA 3D printing</dd></div>
+          <div><dt>Design</dt><dd>SolidWorks, Creo, AutoCAD Mechanical, GD&amp;T, DFM/DFA, drawings released to production, CNC machining, FDM and SLA 3D printing</dd></div>
         </dl>
       </div>
     </div>
@@ -448,6 +531,7 @@ figcaption b{color:var(--lime);font-weight:500}
       <p class="addr"><a href="mailto:yashhetalshah@gmail.com">yashhetalshah@gmail.com</a></p>
       <div class="btns" style="margin-top:24px">
         <a class="btn primary" href="mailto:yashhetalshah@gmail.com?subject=Hello%20Yash">Email me</a>
+        <a class="btn" href="https://www.linkedin.com/in/yashshah2005" target="_blank" rel="noopener">LinkedIn ↗</a>
         <a class="btn" href="https://github.com/YashShah2405">GitHub · YashShah2405</a>
       </div>
     </div>
@@ -462,7 +546,7 @@ figcaption b{color:var(--lime);font-weight:500}
     <h1>The line that was always late</h1>
     <p class="summary">Line 1 shipped 71% of its orders late. I found the bottleneck, fixed the order sequence in Oracle ERP and made material shortages visible every day. Late output fell to 35%.</p>
     <div class="meta">
-      <div><span class="mono">Role</span><p>Production Planning and Supply Chain Intern</p></div>
+      <div><span class="mono">Role</span><p>Production Planning Intern</p></div>
       <div><span class="mono">Where</span><p>Nityam Global Services, Ahmedabad, India</p></div>
       <div><span class="mono">When</span><p>June to August 2025</p></div>
       <div><span class="mono">Methods</span><p>Theory of Constraints, daily shortage review, ERP re-sequencing</p></div>
@@ -759,18 +843,18 @@ figcaption b{color:var(--lime);font-weight:500}
     <a class="back" href="#work">← All work</a>
     <span class="tag real">Real project · Cummins Inc. · 2026</span>
     <h1>Tooling and safety at Cummins</h1>
-    <p class="summary">A summer as an advanced manufacturing engineering intern on a midrange engine line. I redesigned crank press tooling with three drawings released to production, closed a hand safety hazard and reorganized two tool areas.</p>
+    <p class="summary">A summer as an advanced manufacturing engineering intern on a midrange engine line. I redesigned and CNC machined crank press tooling with three drawings released to production, closed a pinch point hazard, flagged 100 high risk stations for ergonomic redesign and set up 5S in the Innovation Center.</p>
     <div class="meta">
       <div><span class="mono">Role</span><p>Advanced Manufacturing Engineering Intern</p></div>
       <div><span class="mono">Where</span><p>Columbus Midrange Engine Plant, Columbus, IN</p></div>
       <div><span class="mono">When</span><p>June to August 2026</p></div>
-      <div><span class="mono">Methods</span><p>Tooling redesign, 5S, 5 Whys, Fishbone, standard work</p></div>
-      <div><span class="mono">Tools</span><p>AutoCAD Mechanical, SolidWorks</p></div>
+      <div><span class="mono">Methods</span><p>Tooling redesign, CNC machining, ergonomic risk mapping, 5S, 5 Whys, Fishbone, standard work</p></div>
+      <div><span class="mono">Tools</span><p>AutoCAD Mechanical, SolidWorks, CNC</p></div>
     </div>
     <div class="outcomes">
       <div><b class="tab">18%</b><span>less scrap after the crank press tooling redesign</span></div>
-      <div><b class="tab">3</b><span>drawings released to production</span></div>
-      <div><b class="tab">25%</b><span>faster tool retrieval after 5S</span></div>
+      <div><b class="tab">$150K/yr</b><span>estimated hazard cost removed by the hand guard</span></div>
+      <div><b class="tab">100</b><span>high risk stations flagged for ergonomic redesign</span></div>
     </div>
   </div></div>
   <div class="wrap case-body">
@@ -784,7 +868,7 @@ figcaption b{color:var(--lime);font-weight:500}
         <ul>
           <li><strong>Scrap:</strong> I traced scrapped parts back to the press tooling with the senior engineers who owned the line.</li>
           <li><strong>Hazard:</strong> I watched the torque tool in use to see exactly where a hand could be caught.</li>
-          <li><strong>Tool areas:</strong> I mapped which tools were used most into a heat map of the space.</li>
+          <li><strong>Ergonomics:</strong> I mapped 5 years of incident data into a heat map to see which stations carried the most risk.</li>
           <li><strong>Oil leak:</strong> I ran a 5 Whys and Fishbone analysis on an engine oil leak to document the root cause.</li>
         </ul>
       </div>
@@ -793,9 +877,9 @@ figcaption b{color:var(--lime);font-weight:500}
       </div>
       <div class="step" id="s4"><span class="mono">04 · Exploration</span><h2>Options I worked through</h2>
         <ul>
-          <li><strong>Tooling:</strong> design revisions modeled in AutoCAD Mechanical and reviewed with senior engineers before release.</li>
+          <li><strong>Tooling:</strong> design revisions modeled in AutoCAD Mechanical, reviewed with senior engineers, then CNC machined before release.</li>
           <li><strong>Guard:</strong> a flexible TPU hand guard modeled in SolidWorks, so it protects without slowing the operator.</li>
-          <li><strong>Layout:</strong> the heat map set where each tool should live, with the most used tools closest to the point of use.</li>
+          <li><strong>Layout:</strong> 5S put the most used tools closest to the point of use, backed by standard work.</li>
         </ul>
       </div>
       <div class="step" id="s5"><span class="mono">05 · Decisions</span><h2>Trade-offs I accepted</h2>
@@ -804,7 +888,7 @@ figcaption b{color:var(--lime);font-weight:500}
           <tbody>
             <tr><td>Redesign the tooling instead of adding inspection</td><td>Good parts first time</td><td>Engineering review and release time</td><td>18% less scrap; 3 drawings released</td></tr>
             <tr><td>TPU guard instead of a rigid one</td><td>Operator safety without slowing the job</td><td>Material wears and needs replacing</td><td>Hazard closed</td></tr>
-            <tr><td>Layout by usage heat map, with SOPs</td><td>Find the right tool fast</td><td>Time to re-label and train</td><td>25% faster tool retrieval</td></tr>
+            <tr><td>5S layout with standard work</td><td>Find the right tool fast</td><td>Time to re-label and train</td><td>25% faster tool retrieval</td></tr>
           </tbody>
         </table></div>
       </div>
@@ -814,8 +898,9 @@ figcaption b{color:var(--lime);font-weight:500}
       <div class="step" id="s7"><span class="mono">07 · Outcome</span><h2>Measured on the line</h2>
         <ul>
           <li><strong>Scrap:</strong> 18% lower after the tooling redesign.</li>
-          <li><strong>Retrieval:</strong> 25% faster after the 5S reorganization.</li>
-          <li><strong>Safety:</strong> the hand hazard on the torque tool was closed.</li>
+          <li><strong>Retrieval:</strong> 25% faster for 60 engineers after the 5S reorganization.</li>
+          <li><strong>Safety:</strong> the pinch point hazard on the torque tool was closed (estimated $150K a year).</li>
+          <li><strong>Ergonomics:</strong> 100 high risk stations flagged for redesign from 5 years of incident data.</li>
         </ul>
         <p><strong>What I learned:</strong> in a large plant, a design is only finished when it is released, trained and written down. The drawing is the middle of the job.</p>
       </div>
@@ -974,7 +1059,7 @@ function initTower(){
 
 /* ---------- Routing ---------- */
 var CASES=["line-1-recovery","control-tower","fleet-launch-kit","cummins-tooling"];
-var HOME_SECTIONS=["work","approach","fit","about","contact","top"];
+var HOME_SECTIONS=["work","skills","approach","fit","about","contact","top"];
 var STEP_NAMES=["Problem","Research","Strategy","Exploration","Decision","Solution","Outcome"];
 function buildTocs(){
   document.querySelectorAll(".case").forEach(function(c){
